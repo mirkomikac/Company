@@ -15,7 +15,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.4.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 
 	<properties>
@@ -48,6 +48,16 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>angularjs</artifactId>
+		    <version>1.6.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>bootstrap</artifactId>
+		    <version>3.3.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -56,8 +66,33 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!--<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<version>0.13.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<schemaLanguage>WSDL</schemaLanguage>
+					<generatePackage>com.company.wsdl</generatePackage>
+					<schemas>
+						<schema>
+							<url>http://localhost:8080/ws/statementService.wsdl</url>
+						</schema>
+						<schema>
+							<url>http://localhost:8080/ws/accountStatementSectionService.wsdl</url>
+						</schema>
+						<schema>
+							<url>http://localhost:8080/ws/accountStatementRequestService.wsdl</url>
+						</schema>
+					</schemas>
+				</configuration>
+			</plugin>--> 
 		</plugins>
 	</build>
-
-
 </project>

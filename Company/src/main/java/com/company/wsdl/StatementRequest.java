@@ -67,7 +67,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "clearanceDialNumber",
     "amount",
     "currency",
-    "emergency"
+    "emergency",
+    "placeOfAcceptance"
 })
 @XmlRootElement(name = "statementRequest", namespace = "http://com/xsdSchemas/statement")
 public class StatementRequest {
@@ -104,6 +105,8 @@ public class StatementRequest {
     protected String currency;
     @XmlElement(namespace = "http://com/xsdSchemas/statement")
     protected boolean emergency;
+    @XmlElement(namespace = "http://com/xsdSchemas/statement")
+    protected String placeOfAcceptance;
 
     /**
      * Gets the value of the messageId property.
@@ -440,5 +443,13 @@ public class StatementRequest {
     public void setEmergency(boolean value) {
         this.emergency = value;
     }
+
+	public String getPlaceOfAcceptance() {
+		return placeOfAcceptance;
+	}
+
+	public void setPlaceOfAcceptance(String placeOfAcceptance) {
+		this.placeOfAcceptance = placeOfAcceptance;
+	}
 
 }

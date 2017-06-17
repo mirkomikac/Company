@@ -9,12 +9,27 @@
 package com.company.wsdl;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 /**
@@ -66,36 +81,100 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "currency",
     "direction"
 })
+@Entity
 public class AccountStatementSectionItem {
+	
+	public AccountStatementSectionItem() {	}
+	
+	@Id
+	@GeneratedValue
+	@XmlTransient
+	private Long id;
+	
+	@XmlTransient
+	@ManyToOne(optional=false)
+	private AccountStatementSectionResponse accountStatementSectionResponse;
+	
 
+	@Column(nullable = false)
+	@Size(min = 1, max = 255)
     @XmlElement(required = true)
     protected String originator;
+    
+	@Column(nullable = false)
+	@Size(min = 1, max = 255)
     @XmlElement(required = true)
     protected String paymentPurpose;
+    
+	@Column(nullable = false)
+	@Size(min = 1, max = 255)
     @XmlElement(required = true)
     protected String reciever;
+    
+	@Transient
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar statementDate;
+    
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@Column(nullable = false)
+	@XmlTransient
+	private Date statementDateDate;
+	
+	@Transient
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar currencyDate;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@Column(nullable = false)
+	@XmlTransient
+	private Date currencyDateDate;
+   
+	@Column(nullable = false)
+	@Size(min = 1, max = 50)
     @XmlElement(required = true)
     protected String originatorAccountNumber;
+    
+	@Column(nullable = false)
+	@Min(0)
+	@Max(99)
     @XmlElement(required = true)
     protected short chargeModel;
+    
+	@Column(nullable = false)
+	@Size(min = 1, max = 20)
     @XmlElement(required = true)
     protected String chargeDialNumber;
+    
+	@Column(nullable = false)
+	@Size(min = 1, max = 50)
     @XmlElement(required = true)
     protected String recieverAccountNumber;
+    
+	@Column(nullable = false)
+	@Min(0)
+	@Max(99)
     @XmlElement(required = true)
     protected short clearanceModel;
+
+	@Column(nullable = false)
+	@Size(min = 1, max = 20)
     @XmlElement(required = true)
     protected String clearanceDialNumber;
+    
+	@Column(nullable = false)
+	@Digits(integer = 17, fraction = 2)
     @XmlElement(required = true)
     protected BigDecimal amount;
+    
+	@Column(nullable = false)
+	@Digits(integer = 17, fraction = 2)
     @XmlElement(required = true)
     protected String currency;
+    
+	@Column(nullable = false)
+	@Digits(integer = 17, fraction = 2)
     @XmlElement(required = true)
     protected String direction;
 
@@ -418,5 +497,37 @@ public class AccountStatementSectionItem {
     public void setDirection(String value) {
         this.direction = value;
     }
+    
+	public Long getId() {
+		return id;
+	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getStatementDateDate() {
+		return statementDateDate;
+	}
+
+	public void setStatementDateDate(Date statementDateDate) {
+		this.statementDateDate = statementDateDate;
+	}
+
+	public Date getCurrencyDateDate() {
+		return currencyDateDate;
+	}
+
+	public void setCurrencyDateDate(Date currencyDateDate) {
+		this.currencyDateDate = currencyDateDate;
+	}
+
+	public AccountStatementSectionResponse getAccountStatementSectionResponse() {
+		return accountStatementSectionResponse;
+	}
+
+	public void setAccountStatementSectionResponse(AccountStatementSectionResponse accountStatementSectionResponse) {
+		this.accountStatementSectionResponse = accountStatementSectionResponse;
+	}
+	
 }

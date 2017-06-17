@@ -1,0 +1,126 @@
+<div ng-cloak ng-controller="accountController">
+
+	<div class="toolbar">
+		<ul>
+			<li><a id="search" ng-click="searchClicked()"><img
+					src="images/search.gif" /></a></li>
+			<li><a href="#" id="refresh"><img src="images/refresh.gif" /></a></li>
+			<li><a ng-click="previousForm()" id="pickup"><img
+					src="images/zoom-pickup.gif" /></a></li>
+			<li><a href="#" id="help"><img src="images/help.gif" /></a></li>
+			<li><a id="first" ng-click="firstClicked()"><img
+					src="images/first.gif" /></a></li>
+			<li><a id="prev" ng-click="prevClicked()"><img
+					src="images/prev.gif" /></a></li>
+			<li><a id="next" ng-click="nextClicked()"><img
+					src="images/next.gif" /></a></li>
+			<li><a id="last" ng-click="lastClicked()"><img
+					src="images/last.gif" /></a></li>
+			<li><a id="add" ng-click="addClicked()"><img
+					src="images/add.gif" /></a></li>
+			<li><a id="remove"
+				ng-click="removeClicked(selectedLegalPersonAccount)"><img
+					src="images/remove.gif" /></a></li>
+			<li><a id="nextform" ng-click="chain(selectedCity)"><img
+					src="images/nextform.gif" /></a></li>
+		</ul>
+	</div>
+
+	{{ mode.current }}
+
+	<div class="table">
+		<table>
+			<tr class="header">
+				<th>Broj racuna</th>
+				<th>Banka</th>
+				<th>Aktivan</th>
+				<th>Valuta</th>
+			</tr>
+			<tr ng-repeat="account in accounts" ng-click="setSelected(account)"
+				ng-class="{'alert alert-info' : selectedAccount===account}">
+				<td>{{ account.accountNumber }}</td>
+				<td>{{ account.bank.name}}</td>
+				<td>{{ account.active}}</td>
+				<td>{{ account.currency}}</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="panel">
+		<p>
+			<input ng-value="account.id" type="hidden" name="${field.name}"
+				id="${field.id}" /> <input type="text" name="someData"
+				ng-model="account.id" style="display: none;" />
+		<p>
+		<p>
+			<label for="${field.id}">Broj racuna</label> <input
+				ng-model="account.accountNumber" type="text" name="${field.name}"
+				id="${field.id}" />
+		</p>
+		<p>
+			<input ng-value="account.bank.id" type="hidden" name="${field.name)"
+				id="${field.id}" /> <label for="${field.id}">Banka</label> <select
+				ng-options="{{bankOptions}}" ng-model="selectedBank"><option
+					value="" ng-if="true"></option></select> <input
+				ng-click="showBanks(selectedBank)" type="button"
+				class="btn btn-sm btn-default pulled-left" value="..."
+				style="margin-left: 6em" />
+		</p>
+
+		<p>
+			<label for="${field.id}">Status</label> <select
+				ng-model="selectedStatus"><option value="" ng-if="true"></option>
+				<option>Aktivan</option>
+				<option>Neaktivan</option>
+			</select>
+		</p>
+		<p>
+			<label for="${field.id}">Valuta</label> <input
+				ng-model="account.currency" type="text" name="${field.name}"
+				id="${field.id}" />
+		</p>
+		<div id="formActions">
+			<input ng-click="submitAction(account)" type="submit" value="Potvrda"
+				style="margin-left: 6em" class="btn btn-lg btn-default pulled-left" />
+			<input ng-click="rollbackAction()" type="button" value="Rollback"
+				style="margin-left: 6em" class="btn btn-lg btn-default pulled-left" />
+		</div>
+	</div>
+
+	<md-dialog class="modal" id="bankModal" tabindex="-1"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1>Banke</h1>
+			</div>
+			<div class="modal-body">
+				<form validate class="simple-form">
+					<table class="centered">
+						<tr class="header">
+							<th>Naziv</th>
+							<th>Adresa</th>
+							<th>Email</th>
+							<th>Web stranica</th>
+						</tr>
+						<tr ng-repeat="bank in banks"
+							ng-click="setModalSelectedBank(bank)"
+							ng-class="{'alert alert-info' : selectedModalBank===bank}">
+							<td class="naziv">{{ bank.name }}</td>
+							<td class="adresa">{{ bank.address }}</td>
+							<td class="adresa">{{ bank.email }}</td>
+							<td class="adresa">{{ bank.web }}</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<input id="btnConfirm" type="submit"
+					class="btn btn-default pulled-left" ng-click="confirmBank()"
+					value="Izaberi" />
+			</div>
+		</div>
+	</div>
+	</md-dialog>
+
+</div>

@@ -8,13 +8,34 @@
 
 package com.company.wsdl;
 
+import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import com.company.model.Account;
+import com.company.model.AccountRequestResponse;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -45,16 +66,47 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "sectionOrdinate"
 })
 @XmlRootElement(name = "accountStatementRequest", namespace = "http://com/xsdSchemas/accountStatementRequest")
+@Entity
 public class AccountStatementRequest {
-
+	
+	public AccountStatementRequest() {}
+	
+	@Id
+	@GeneratedValue
+	@XmlTransient
+	private Long id;
+	
+	@Column(nullable = false)
+	@Size(min=1, max=50)
     @XmlElement(namespace = "http://com/xsdSchemas/accountStatementRequest", required = true)
     protected String accountNumber;
+	
+	@Transient
     @XmlElement(namespace = "http://com/xsdSchemas/accountStatementRequest", required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar date;
-    @XmlElement(namespace = "http://com/xsdSchemas/accountStatementRequest")
+	
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@Column(nullable=false)
+	@XmlTransient
+	private Date dateDate;
+	
+	@Column(nullable=false)
+	@Min(value=0)
+	@Max(value=999)
+	@XmlElement(namespace = "http://com/xsdSchemas/accountStatementRequest")
     protected short sectionOrdinate;
-
+	
+	@XmlTransient
+	@JsonIgnore
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="accountStatementRequest", orphanRemoval=true, targetEntity=AccountRequestResponse.class)
+	private Set<AccountRequestResponse> responses;
+	
+	@XmlTransient
+	@ManyToOne(optional = true)
+	private Account account;
+	
     /**
      * Gets the value of the accountNumber property.
      * 
@@ -118,5 +170,29 @@ public class AccountStatementRequest {
     public void setSectionOrdinate(short value) {
         this.sectionOrdinate = value;
     }
+    
+	public Long getId() {
+		return id;
+	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getDateDate() {
+		return dateDate;
+	}
+
+	public void setDateDate(Date dateDate) {
+		this.dateDate = dateDate;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+	
 }

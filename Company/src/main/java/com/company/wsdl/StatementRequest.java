@@ -5,23 +5,38 @@
 // Generated on: 2017.06.14 at 11:37:44 PM CEST 
 //
 
-
 package com.company.wsdl;
 
 import java.math.BigDecimal;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>
+ * Java class for anonymous complex type.
  * 
- * <p>The following schema fragment specifies the expected content contained within this class.
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
  * 
  * <pre>
  * &lt;complexType&gt;
@@ -52,397 +67,410 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "messageId",
-    "originator",
-    "paymentPurpose",
-    "reciever",
-    "statementDate",
-    "currencyDate",
-    "originatorAccountNumber",
-    "chargeModel",
-    "chargeDialNumber",
-    "recieverAccountNumber",
-    "clearanceModel",
-    "clearanceDialNumber",
-    "amount",
-    "currency",
-    "emergency",
-    "placeOfAcceptance"
-})
+@XmlType(name = "", propOrder = { "messageId", "originator", "paymentPurpose", "reciever", "statementDate",
+		"currencyDate", "originatorAccountNumber", "chargeModel", "chargeDialNumber", "recieverAccountNumber",
+		"clearanceModel", "clearanceDialNumber", "amount", "currency", "emergency", "placeOfAcceptance" })
 @XmlRootElement(name = "statementRequest", namespace = "http://com/xsdSchemas/statement")
+@Entity
 public class StatementRequest {
+	
+	public StatementRequest() {	}
+	
+	@Id
+	@GeneratedValue
+	@XmlTransient
+	private Long id;
+	
+	@Column(nullable = false)
+	@Size(min = 1, max = 50)
+	@XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
+	protected String messageId;
 
-    @XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
-    protected String messageId;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
-    protected String originator;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
-    protected String paymentPurpose;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
-    protected String reciever;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar statementDate;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar currencyDate;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
-    protected String originatorAccountNumber;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement")
-    protected short chargeModel;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
-    protected String chargeDialNumber;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
-    protected String recieverAccountNumber;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement")
-    protected short clearanceModel;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
-    protected String clearanceDialNumber;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
-    protected BigDecimal amount;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
-    protected String currency;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement")
-    protected boolean emergency;
-    @XmlElement(namespace = "http://com/xsdSchemas/statement")
-    protected String placeOfAcceptance;
+	@Column(nullable = false)
+	@Size(min = 1, max = 255)
+	@XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
+	protected String originator;
 
-    /**
-     * Gets the value of the messageId property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getMessageId() {
-        return messageId;
-    }
+	@Column(nullable = false)
+	@Size(min = 1, max = 255)
+	@XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
+	protected String paymentPurpose;
 
-    /**
-     * Sets the value of the messageId property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setMessageId(String value) {
-        this.messageId = value;
-    }
+	@Column(nullable = false)
+	@Size(min = 1, max = 255)
+	@XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
+	protected String reciever;
 
-    /**
-     * Gets the value of the originator property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getOriginator() {
-        return originator;
-    }
+	@Transient
+	@XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
+	@XmlSchemaType(name = "date")
+	protected XMLGregorianCalendar statementDate;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@Column(nullable = false)
+	@XmlTransient
+	private Date statementDateDate;
 
-    /**
-     * Sets the value of the originator property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setOriginator(String value) {
-        this.originator = value;
-    }
+	@Transient
+	@XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
+	@XmlSchemaType(name = "date")
+	protected XMLGregorianCalendar currencyDate;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@Column(nullable = false)
+	@XmlTransient
+	private Date currencyDateDate;
 
-    /**
-     * Gets the value of the paymentPurpose property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPaymentPurpose() {
-        return paymentPurpose;
-    }
+	@Column(nullable = false)
+	@Size(min = 1, max = 50)
+	@XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
+	protected String originatorAccountNumber;
 
-    /**
-     * Sets the value of the paymentPurpose property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPaymentPurpose(String value) {
-        this.paymentPurpose = value;
-    }
+	@Column(nullable = false)
+	@Min(0)
+	@Max(99)
+	@XmlElement(namespace = "http://com/xsdSchemas/statement")
+	protected short chargeModel;
 
-    /**
-     * Gets the value of the reciever property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getReciever() {
-        return reciever;
-    }
+	@Column(nullable = false)
+	@Size(min = 1, max = 20)
+	@XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
+	protected String chargeDialNumber;
 
-    /**
-     * Sets the value of the reciever property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setReciever(String value) {
-        this.reciever = value;
-    }
+	@Column(nullable = false)
+	@Size(min = 1, max = 50)
+	@XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
+	protected String recieverAccountNumber;
 
-    /**
-     * Gets the value of the statementDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getStatementDate() {
-        return statementDate;
-    }
+	@Column(nullable = false)
+	@Min(0)
+	@Max(99)
+	@XmlElement(namespace = "http://com/xsdSchemas/statement")
+	protected short clearanceModel;
 
-    /**
-     * Sets the value of the statementDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setStatementDate(XMLGregorianCalendar value) {
-        this.statementDate = value;
-    }
+	@Column(nullable = false)
+	@Size(min = 1, max = 20)
+	@XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
+	protected String clearanceDialNumber;
 
-    /**
-     * Gets the value of the currencyDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getCurrencyDate() {
-        return currencyDate;
-    }
+	@Column(nullable = false)
+	@Digits(integer = 17, fraction = 2)
+	@XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
+	protected BigDecimal amount;
 
-    /**
-     * Sets the value of the currencyDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setCurrencyDate(XMLGregorianCalendar value) {
-        this.currencyDate = value;
-    }
+	@Column(nullable = false)
+	@Size(min = 1, max = 3)
+	@XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
+	protected String currency;
 
-    /**
-     * Gets the value of the originatorAccountNumber property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getOriginatorAccountNumber() {
-        return originatorAccountNumber;
-    }
+	@Column(nullable = false)
+	@XmlElement(namespace = "http://com/xsdSchemas/statement")
+	protected boolean emergency;
 
-    /**
-     * Sets the value of the originatorAccountNumber property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setOriginatorAccountNumber(String value) {
-        this.originatorAccountNumber = value;
-    }
+	@Column(nullable = false)
+	@Size(min = 1, max = 255)
+	@XmlElement(namespace = "http://com/xsdSchemas/statement")
+	protected String placeOfAcceptance;
 
-    /**
-     * Gets the value of the chargeModel property.
-     * 
-     */
-    public short getChargeModel() {
-        return chargeModel;
-    }
+	/**
+	 * Gets the value of the messageId property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getMessageId() {
+		return messageId;
+	}
 
-    /**
-     * Sets the value of the chargeModel property.
-     * 
-     */
-    public void setChargeModel(short value) {
-        this.chargeModel = value;
-    }
+	/**
+	 * Sets the value of the messageId property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setMessageId(String value) {
+		this.messageId = value;
+	}
 
-    /**
-     * Gets the value of the chargeDialNumber property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getChargeDialNumber() {
-        return chargeDialNumber;
-    }
+	/**
+	 * Gets the value of the originator property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getOriginator() {
+		return originator;
+	}
 
-    /**
-     * Sets the value of the chargeDialNumber property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setChargeDialNumber(String value) {
-        this.chargeDialNumber = value;
-    }
+	/**
+	 * Sets the value of the originator property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setOriginator(String value) {
+		this.originator = value;
+	}
 
-    /**
-     * Gets the value of the recieverAccountNumber property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getRecieverAccountNumber() {
-        return recieverAccountNumber;
-    }
+	/**
+	 * Gets the value of the paymentPurpose property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getPaymentPurpose() {
+		return paymentPurpose;
+	}
 
-    /**
-     * Sets the value of the recieverAccountNumber property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setRecieverAccountNumber(String value) {
-        this.recieverAccountNumber = value;
-    }
+	/**
+	 * Sets the value of the paymentPurpose property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setPaymentPurpose(String value) {
+		this.paymentPurpose = value;
+	}
 
-    /**
-     * Gets the value of the clearanceModel property.
-     * 
-     */
-    public short getClearanceModel() {
-        return clearanceModel;
-    }
+	/**
+	 * Gets the value of the reciever property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getReciever() {
+		return reciever;
+	}
 
-    /**
-     * Sets the value of the clearanceModel property.
-     * 
-     */
-    public void setClearanceModel(short value) {
-        this.clearanceModel = value;
-    }
+	/**
+	 * Sets the value of the reciever property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setReciever(String value) {
+		this.reciever = value;
+	}
 
-    /**
-     * Gets the value of the clearanceDialNumber property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getClearanceDialNumber() {
-        return clearanceDialNumber;
-    }
+	/**
+	 * Gets the value of the statementDate property.
+	 * 
+	 * @return possible object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public XMLGregorianCalendar getStatementDate() {
+		return statementDate;
+	}
 
-    /**
-     * Sets the value of the clearanceDialNumber property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setClearanceDialNumber(String value) {
-        this.clearanceDialNumber = value;
-    }
+	/**
+	 * Sets the value of the statementDate property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public void setStatementDate(XMLGregorianCalendar value) {
+		this.statementDate = value;
+	}
 
-    /**
-     * Gets the value of the amount property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigDecimal }
-     *     
-     */
-    public BigDecimal getAmount() {
-        return amount;
-    }
+	/**
+	 * Gets the value of the currencyDate property.
+	 * 
+	 * @return possible object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public XMLGregorianCalendar getCurrencyDate() {
+		return currencyDate;
+	}
 
-    /**
-     * Sets the value of the amount property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigDecimal }
-     *     
-     */
-    public void setAmount(BigDecimal value) {
-        this.amount = value;
-    }
+	/**
+	 * Sets the value of the currencyDate property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link XMLGregorianCalendar }
+	 * 
+	 */
+	public void setCurrencyDate(XMLGregorianCalendar value) {
+		this.currencyDate = value;
+	}
 
-    /**
-     * Gets the value of the currency property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCurrency() {
-        return currency;
-    }
+	/**
+	 * Gets the value of the originatorAccountNumber property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getOriginatorAccountNumber() {
+		return originatorAccountNumber;
+	}
 
-    /**
-     * Sets the value of the currency property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCurrency(String value) {
-        this.currency = value;
-    }
+	/**
+	 * Sets the value of the originatorAccountNumber property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setOriginatorAccountNumber(String value) {
+		this.originatorAccountNumber = value;
+	}
 
-    /**
-     * Gets the value of the emergency property.
-     * 
-     */
-    public boolean isEmergency() {
-        return emergency;
-    }
+	/**
+	 * Gets the value of the chargeModel property.
+	 * 
+	 */
+	public short getChargeModel() {
+		return chargeModel;
+	}
 
-    /**
-     * Sets the value of the emergency property.
-     * 
-     */
-    public void setEmergency(boolean value) {
-        this.emergency = value;
-    }
+	/**
+	 * Sets the value of the chargeModel property.
+	 * 
+	 */
+	public void setChargeModel(short value) {
+		this.chargeModel = value;
+	}
+
+	/**
+	 * Gets the value of the chargeDialNumber property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getChargeDialNumber() {
+		return chargeDialNumber;
+	}
+
+	/**
+	 * Sets the value of the chargeDialNumber property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setChargeDialNumber(String value) {
+		this.chargeDialNumber = value;
+	}
+
+	/**
+	 * Gets the value of the recieverAccountNumber property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getRecieverAccountNumber() {
+		return recieverAccountNumber;
+	}
+
+	/**
+	 * Sets the value of the recieverAccountNumber property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setRecieverAccountNumber(String value) {
+		this.recieverAccountNumber = value;
+	}
+
+	/**
+	 * Gets the value of the clearanceModel property.
+	 * 
+	 */
+	public short getClearanceModel() {
+		return clearanceModel;
+	}
+
+	/**
+	 * Sets the value of the clearanceModel property.
+	 * 
+	 */
+	public void setClearanceModel(short value) {
+		this.clearanceModel = value;
+	}
+
+	/**
+	 * Gets the value of the clearanceDialNumber property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getClearanceDialNumber() {
+		return clearanceDialNumber;
+	}
+
+	/**
+	 * Sets the value of the clearanceDialNumber property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setClearanceDialNumber(String value) {
+		this.clearanceDialNumber = value;
+	}
+
+	/**
+	 * Gets the value of the amount property.
+	 * 
+	 * @return possible object is {@link BigDecimal }
+	 * 
+	 */
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	/**
+	 * Sets the value of the amount property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link BigDecimal }
+	 * 
+	 */
+	public void setAmount(BigDecimal value) {
+		this.amount = value;
+	}
+
+	/**
+	 * Gets the value of the currency property.
+	 * 
+	 * @return possible object is {@link String }
+	 * 
+	 */
+	public String getCurrency() {
+		return currency;
+	}
+
+	/**
+	 * Sets the value of the currency property.
+	 * 
+	 * @param value
+	 *            allowed object is {@link String }
+	 * 
+	 */
+	public void setCurrency(String value) {
+		this.currency = value;
+	}
+
+	/**
+	 * Gets the value of the emergency property.
+	 * 
+	 */
+	public boolean isEmergency() {
+		return emergency;
+	}
+
+	/**
+	 * Sets the value of the emergency property.
+	 * 
+	 */
+	public void setEmergency(boolean value) {
+		this.emergency = value;
+	}
 
 	public String getPlaceOfAcceptance() {
 		return placeOfAcceptance;
@@ -452,4 +480,27 @@ public class StatementRequest {
 		this.placeOfAcceptance = placeOfAcceptance;
 	}
 
+	public Date getStatementDateDate() {
+		return statementDateDate;
+	}
+
+	public void setStatementDateDate(Date statementDateDate) {
+		this.statementDateDate = statementDateDate;
+	}
+
+	public Date getCurrencyDateDate() {
+		return currencyDateDate;
+	}
+
+	public void setCurrencyDateDate(Date currencyDateDate) {
+		this.currencyDateDate = currencyDateDate;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 }

@@ -11,14 +11,36 @@ package com.company.wsdl;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
+
+import com.company.model.Account;
+import com.company.model.AccountRequestResponse;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -63,31 +85,82 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "accountStatementSectionItems"
 })
 @XmlRootElement(name = "accountStatementSectionResponse")
+@Entity
 public class AccountStatementSectionResponse {
-
+	
+	public AccountStatementSectionResponse() {	}
+	
+	@Id
+	@GeneratedValue
+	@XmlTransient
+	private Long id;
+	
+	@Column(nullable = false)
+	@Size(min=1, max=50)
     @XmlElement(required = true)
     protected String accountNumber;
+    
+	@Transient
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar requestDate;
-    @XmlElement(required = true)
-    protected short sectionOrdinate;
-    @XmlElement(required = true)
+    
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@Column(nullable=false)
+	@XmlTransient
+	private Date requestDateDate;
+	
+	@Column(nullable = false)
+	@XmlElement(required = true)
+    @Min(0)
+	@Max(999)
+	protected short sectionOrdinate;
+    
+	@Column(nullable = false)
+	@Digits(integer=17, fraction=2)
+	@XmlElement(required = true)
     protected BigDecimal previousBalance;
+    
+	@Column(nullable = false)
+	@Digits(integer=17, fraction=2)
     @XmlElement(required = true)
     protected BigInteger numberOfChangesProfit;
+    
+	@Column(nullable = false)
+	@Digits(integer=17, fraction=2)
     @XmlElement(required = true)
     protected BigDecimal totalProfit;
+    
+	@Column(nullable = false)
+	@Digits(integer=17, fraction=2)
     @XmlElement(required = true)
     protected BigInteger numberOfChangesDue;
+    
+	@Column(nullable = false)
+	@Digits(integer=17, fraction=2)
     @XmlElement(required = true)
     protected BigDecimal totalDue;
+    
+	@Column(nullable = false)
+	@Digits(integer=17, fraction=2)
     @XmlElement(required = true)
     protected BigDecimal currentBalance;
-    @XmlElement(required = true)
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="accountStatementSectionResponse", orphanRemoval=true, targetEntity=AccountStatementSectionItem.class)
+    @JsonIgnore
+	@XmlElement(required = true)
     protected List<AccountStatementSectionItem> accountStatementSectionItems;
-
-    /**
+	
+	@XmlTransient
+	@JsonIgnore
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="accountStatementSectionResponse", orphanRemoval=true, targetEntity=AccountRequestResponse.class)
+	private Set<AccountRequestResponse> responses;
+	
+	@XmlTransient
+	@ManyToOne(optional=true)
+	private Account account;
+	
+	/**
      * Gets the value of the accountNumber property.
      * 
      * @return
@@ -323,5 +396,29 @@ public class AccountStatementSectionResponse {
         }
         return this.accountStatementSectionItems;
     }
+    
+    public Date getRequestDateDate() {
+		return requestDateDate;
+	}
+
+	public void setRequestDateDate(Date requestDateDate) {
+		this.requestDateDate = requestDateDate;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 
 }

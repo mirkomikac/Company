@@ -1,0 +1,1 @@
+var app = angular.module('company', ['company.controller', 'company.service', 'company.route', 'ngNotify']);

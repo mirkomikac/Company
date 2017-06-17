@@ -1,0 +1,56 @@
+.table {
+	position: relative;
+	 display: block;
+}
+
+
+.table table {
+	border-collapse: collapse;
+	min-width: 350px;
+}
+
+.table table, th, td {
+	border: 1px solid black;
+}
+
+table tr.highlighted{
+	background: yellow;	
+}
+
+div.panel{
+	margin-top:2em;
+	border:solid 1px;
+}
+
+.toolbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.toolbar li {
+    float: left;
+}
+
+.toolbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.toolbar li a:hover {
+    background-color: #111;
+}
+
+form label, form input{
+	margin-left:1em;
+}
+
+form label{
+	width:3em;
+	display:inline-block
+}

@@ -1,0 +1,76 @@
+<div ng-cloak ng-controller="accountStatementRequestController">
+
+	<div class="toolbar">
+		<ul>
+			<li><a id="search" ng-click="searchClicked()"><img
+					src="images/search.gif" /></a></li>
+			<li><a href="#" id="refresh"><img src="images/refresh.gif" /></a></li>
+			<li><a href="#" id="help"><img src="images/help.gif" /></a></li>
+			<li><a id="first" ng-click="firstClicked()"><img
+					src="images/first.gif" /></a></li>
+			<li><a id="prev" ng-click="prevClicked()"><img
+					src="images/prev.gif" /></a></li>
+			<li><a id="next" ng-click="nextClicked()"><img
+					src="images/next.gif" /></a></li>
+			<li><a id="last" ng-click="lastClicked()"><img
+					src="images/last.gif" /></a></li>
+			<li><a id="add" ng-click="addClicked()"><img
+					src="images/add.gif" /></a></li>
+			<li><a id="remove"
+				ng-click="removeClicked(selectedExchangeList)"><img
+					src="images/remove.gif" /></a></li>
+		</ul>
+	</div>
+
+	{{ mode.current }}
+
+	<div class="table">
+		<table>
+			<tr class="header">
+				<th>Broj racuna</th>
+				<th>Datum</th>
+				<th>Redni broj preseka</th>
+			</tr>
+			<tr ng-repeat="accountStatementRequest in accountStatementRequests"
+				ng-click="setSelected(accountStatementRequest)"
+				ng-class="{'alert alert-info' : selectedAccountStatementRequest===accountStatementRequest}">
+				<td>{{ accountStatementRequest.accountNumber }}</td>
+				<td>{{ accountStatementRequest.dateDate }}</td>
+				<td>{{ accountStatementRequest.sectionOrdinate }}</td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="panel">
+		<p>
+			<input ng-value="accountStatementRequest.id" type="hidden"
+				name="${field.name}" id="${field.id}" /> <input type="text"
+				name="someData" ng-model="accountStatementRequest.id"
+				style="display: none;" />
+		<p>
+			<label for="${field.id}">Broj racuna</label> <input
+				ng-model="accountStatementRequest.accountNumber" type="text"
+				name="${field.name}" id="${field.id}" />
+		</p>
+
+		<p>
+			<label for="${field.id}">Datum</label> <input id="dateDatePicker"
+				type="date" name="${field.name}" id="${field.id}" />
+		</p>
+
+		<p>
+			<label for="${field.id}">Redni broj preseka</label> <input
+				ng-model="accountStatementRequest.sectionOrdinate" type="number"
+				name="${field.name}" id="${field.id}" />
+		</p>
+		
+		<div id="formActions">
+			<input ng-click="submitAction(accountStatementRequest)" type="submit"
+				value="Potvrda" style="margin-left: 6em"
+				class="btn btn-lg btn-default pulled-left" /> <input
+				ng-click="rollbackAction()" type="button" value="Rollback"
+				style="margin-left: 6em" class="btn btn-lg btn-default pulled-left" />
+		</div>
+	</div>
+
+</div>

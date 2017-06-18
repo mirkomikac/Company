@@ -46,6 +46,9 @@ public class Bank {
 	@Column(length = 20)
 	private String fax;
 	
+	@Column(nullable = false)
+	String bankCode;
+	
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "bank", orphanRemoval = true, targetEntity = Account.class)
 	private Set<Account> accounts;
@@ -121,6 +124,12 @@ public class Bank {
 	public void setStatementService(String statementService) {
 		this.statementService = statementService;
 	}
-	
-	
+
+	public String getBankCode() {
+		return bankCode;
+	}
+
+	public void setBankCode(String bankCode) {
+		this.bankCode = bankCode;
+	}
 }

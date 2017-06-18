@@ -15,9 +15,9 @@ public class AccountStatementWebServiceClient extends WebServiceGatewaySupport{
 		return response;
 	}
 	
-	public boolean sendAccountStatementSectionItem(StatementRequest request){
+	public boolean sendAccountStatementSectionItem(StatementRequest request, String serviceUrl){
 		Object response = this.getWebServiceTemplate()
-			.marshalSendAndReceive("http://localhost:8080/ws/statementService", request);
+			.marshalSendAndReceive(serviceUrl, request);
 		if(response == null){
 			return false;
 		}

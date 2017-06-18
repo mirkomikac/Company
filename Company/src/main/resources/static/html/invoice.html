@@ -1,0 +1,164 @@
+<div ng-cloak ng-controller="invoiceController">
+
+	<div class="toolbar">
+		<ul>
+			<li><a id="search" ng-click="searchClicked()"><img
+					src="images/search.gif" /></a></li>
+			<li><a ng-click="rollbackAction()" id="refresh"><img src="images/refresh.gif" /></a></li>
+			<li><a ng-click="previousForm()" id= 'pickup'><img
+					src="images/zoom-pickup.gif" /></a></li>
+			<li><a href="#" id="help"><img src="images/help.gif" /></a></li>
+			<li><a id="first" ng-click="firstClicked()"><img
+					src="images/first.gif" /></a></li>
+			<li><a id="prev" ng-click="prevClicked()"><img
+					src="images/prev.gif" /></a></li>
+			<li><a id="next" ng-click="nextClicked()"><img
+					src="images/next.gif" /></a></li>
+			<li><a id="last" ng-click="lastClicked()"><img
+					src="images/last.gif" /></a></li>
+			<li><a id="add" ng-click="addClicked()"><img
+					src="images/add.gif" /></a></li>
+			<li><a id="remove" ng-click="removeClicked(selectedInvoice)"><img
+					src="images/remove.gif" /></a></li>
+			<li><a id="nextform" ng-click="chain(selectedInvoice)"><img
+					src="images/nextform.gif" /></a></li>
+		</ul>
+	</div>
+
+	{{ mode.current }}
+	
+	
+	<div class="table-responsive">
+		<table class = "table">
+			<tr class="header">
+				<th>ID Poruke</th>
+				<th>Dobavljac</th>
+				<th>Kupac</th>
+				<th>Broj racuna</th>
+				<th>Datum racuna</th>
+				<th>Vrednost robe</th>
+				<th>Vrednost usluga</th>
+				<th>Ukupno roba i usluge</th>
+				<th>Popust</th>
+				<th>Porez</th>
+				<th>Iznos za uplatu</th>
+				<th>Uplata na racun</th>
+				<th>Oznaka valute</th>
+				<th>Datum valute</th>
+			</tr>
+			<tr ng-repeat="invoice in invoices" ng-click="setSelected(invoice)"
+				ng-class="{'alert alert-info' : selectedInvoice===invoice}">
+				<td>{{ invoice.messageId }}</td>
+				<td>{{ invoice.supplier.name }}</td>
+				<td>{{ invoice.purchaser.name }}</td>
+				<td>{{ invoice.billingNumber }}</td>
+				<td>{{ invoice.billingDate }}</td>
+				<td>{{ invoice.merchandiseValue }}</td>
+				<td>{{ invoice.serviceValue }}</td>
+				<td>{{ invoice.merchandiseAndServiceValue }}</td>
+				<td>{{ invoice.discount }}</td>
+				<td>{{ invoice.taxes }}</td>
+				<td>{{ invoice.amountForPayment }}</td>
+				<td>{{ invoice.accountNumber.accountNumber }}</td>
+				<td>{{ invoice.currency }}</td>
+				<td>{{ invoice.currencyDate }}</td>
+
+			</tr>
+		</table>
+	</div>
+	
+	<div class="panel">
+		<p>
+			<input ng-value="invoice.id" type="hidden" name="${field.name}"
+				id="${field.id}" /> <input type="text" name="someData"
+				ng-model="invoice.id" style="display: none;" />
+		<p>
+			<label for="${field.id}">ID poruke:</label> <input ng-model="invoice.messageId"
+				type="number" name="${field.name}" id="${field.id}" />
+		</p>
+		
+		<p>
+			<label for="${field.id}">Dobavljac</label> <select id="selectFieldSupplier"
+				ng-model="invoice.supplier" ng-options="s.name for s in suppliers"><option
+					value="" ng-if=true>
+				<option></select>
+		</p>
+		
+		<p>
+			<label for="${field.id}">Kupac</label> <select id="selectFieldPurchaser"
+				ng-model="invoice.purchaser" ng-options="p.name for p in purchasers"><option
+					value="" ng-if=true>
+				<option></select>
+		</p>
+		
+		<p>
+			<label for="${field.id}">Broj racuna:</label> <input
+				ng-model="invoice.billingNumber" type="number" name="${field.name}"
+				id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Datum racuna:</label> <input ng-model="invoice.billingDate"
+				type="date" name="${field.name}" id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Vrednost robe:</label> <input
+			 ng-model="invoice.merchandiseValue"
+				type="number" step="0.01" name="${field.name}" id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Vrednost usluga:</label> <input
+			 ng-model="invoice.serviceValue"
+				type="number" step="0.01" name="${field.name}" id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Ukupna vrednost robe i usluga:</label> <input
+			 ng-model="invoice.merchandiseAndServiceValue"
+				type="number" step="0.01" name="${field.name}" id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Popust:</label> <input 
+			ng-model="invoice.discount"
+				type="number" step="0.01" name="${field.name}" id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Porez:</label> <input
+			 ng-model="invoice.taxes"
+				type="number" step="0.01" name="${field.name}" id="${field.id}" />
+		</p>
+		
+		<p>
+			<label for="${field.id}">Iznos za uplatu:</label> <input
+			 ng-model="invoice.amountForPayment"
+				type="number" step="0.01" name="${field.name}" id="${field.id}" />
+		</p>
+		
+		<p>
+			<label for="${field.id}">Uplata na racun</label> <select id="selectFieldAccount"
+				ng-model="invoice.accountNumber" ng-options="a.accountNumber for a in accountNumbers"><option
+					value="" ng-if=true>
+				<option></select>
+		</p>
+		
+		<p>
+			<label for="${field.id}">Oznaka valute:</label> <input
+			 ng-model="invoice.currency"
+				type="text" name="${field.name}" id="${field.id}" />
+		</p>
+		
+		<p>
+			<label for="${field.id}">Datum valute:</label> <input
+			 ng-model="invoice.currencyDate"
+				type="date" name="${field.name}" id="${field.id}" />
+		</p>
+		
+		
+		
+		<div id="formActions">
+			<input ng-click="submitAction(bank)" type="submit" value="Potvrda"
+				style="margin-left: 6em" class="btn btn-lg btn-default pulled-left" />
+			<input ng-click="rollbackAction()" type="button" value="Rollback"
+				style="margin-left: 6em" class="btn btn-lg btn-default pulled-left" />
+		</div>
+	</div>
+	 
+	</div>

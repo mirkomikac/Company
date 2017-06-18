@@ -45,6 +45,10 @@ public class Account {
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="account", orphanRemoval=true, targetEntity=AccountStatementSectionResponse.class)
 	private Set<AccountStatementSectionResponse> accountStatementSectionResponses;
 	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="accountNumber", orphanRemoval=true, targetEntity = Invoice.class)
+	@JsonIgnore
+	private Set<Invoice> invoices;
+	
 	public Long getId() {
 		return id;
 	}

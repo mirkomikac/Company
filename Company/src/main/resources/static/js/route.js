@@ -11,6 +11,8 @@ app.config(function($routeProvider) {
 		templateUrl : "html/account.html"
 	}).when("/accountStatementSectionResponses", {
 		templateUrl : "html/accountStatementSectionResponse.html"
+	}).when("/invoices", {
+		templateUrl : "html/invoice.html"
 	});
 
 });

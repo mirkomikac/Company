@@ -2,4 +2,6 @@ var controller = angular.module('company.controller', ['company.accountStatement
                                                        'company.bankController',
                                                        'company.accountController',
                                                        'company.accountStatementSectionResponseController',
-                                                       'company.invoiceController']);
+                                                       'company.invoiceController',
+                                                       'company.statementRequestController'
+                                                       ]);

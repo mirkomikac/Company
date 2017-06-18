@@ -25,7 +25,7 @@ import com.service.StatementRequestService;
 import com.webservice.AccountStatementWebServiceClient;
 
 @RestController
-@RequestMapping("/statements")
+@RequestMapping("/statementRequests")
 public class StatementRequestController {
 	
 	@Autowired

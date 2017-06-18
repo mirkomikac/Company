@@ -10,6 +10,7 @@ accountController.controller('accountController', function($scope,
 	$scope.banks = [];
 	$scope.bankOptions = "bank.name for bank in banks";
 	$scope.selectedBank = {};
+	$scope.selectedModalBank = {};
 	
 	$scope.mode = {};
 	$scope.mode.current = "Rezim izmene";

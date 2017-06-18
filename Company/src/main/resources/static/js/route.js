@@ -13,6 +13,8 @@ app.config(function($routeProvider) {
 		templateUrl : "html/accountStatementSectionResponse.html"
 	}).when("/invoices", {
 		templateUrl : "html/invoice.html"
+	}).when("/statementRequests", {
+		templateUrl : "html/statementRequest.html"
 	});
 
 });

@@ -1,0 +1,137 @@
+<div ng-cloak ng-controller="statementRequestController">
+
+	<div class="toolbar">
+		<ul>
+			<li><a id="search" ng-click="searchClicked()"><img
+					src="images/search.gif" /></a></li>
+			<li><a href="#" id="refresh"><img src="images/refresh.gif" /></a></li>
+			<li><a ng-click="previousForm()" id="pickup"><img
+					src="images/zoom-pickup.gif" /></a></li>
+			<li><a href="#" id="help"><img src="images/help.gif" /></a></li>
+			<li><a id="first" ng-click="firstClicked()"><img
+					src="images/first.gif" /></a></li>
+			<li><a id="prev" ng-click="prevClicked()"><img
+					src="images/prev.gif" /></a></li>
+			<li><a id="next" ng-click="nextClicked()"><img
+					src="images/next.gif" /></a></li>
+			<li><a id="last" ng-click="lastClicked()"><img
+					src="images/last.gif" /></a></li>
+			<li><a id="remove"
+				ng-click="removeClicked(selectedStatementRequest)"><img
+					src="images/remove.gif" /></a></li>
+		</ul>
+	</div>
+
+	{{ mode.current }}
+
+	<div class="table">
+		<table>
+			<tr class="header">
+				<th>Duznik</th>
+				<th>Svrha</th>
+				<th>Primalac</th>
+				<th>Datum naloga</th>
+				<th>Datum valute</th>
+				<th>Poziv na broj zaduzenja</th>
+				<th>Model zaduzenja</th>
+				<th>Poziv na broj odobrenja</th>
+				<th>Model odobrenja</th>
+				<th>Iznos</th>
+				<th>Valuta</th>
+				<th>Hitno</th>
+			</tr>
+			<tr ng-repeat="statementRequest in statementRequests"
+				ng-click="setSelected(statementRequest)"
+				ng-class="{'alert alert-info' : selectedStatementRequest === statementRequest}">
+				<td>{{ statementRequest.originator}}</td>
+				<td>{{ statementRequest.paymentPurpose }}</td>
+				<td>{{ statementRequest.reciever}}</td>
+				<td>{{ statementRequest.statementDateDate}}</td>
+				<td>{{ statementRequest.currencyDateDate}}</td>
+				<td>{{ statementRequest.chargeDialNumber}}</td>
+				<td>{{ statementRequest.chargeModel}}</td>
+				<td>{{ statementRequest.clearanceDialNumber}}</td>
+				<td>{{ statementRequest.clearanceModel}}</td>
+				<td>{{ statementRequest.amount}}</td>
+				<td>{{ statementRequest.currency}}</td>
+				<td>{{ statementRequest.emergency}}</td>
+			</tr>
+		</table>
+	</div>
+
+
+	<div class="panel">
+		<p>
+			<label for="${field.id}">Uplatilac</label> <input
+				ng-model="statementRequest.originator" type="text"
+				name="${field.name}" id="${field.id}" />
+		</p>
+
+
+
+
+		<p>
+			<label for="${field.id}">Svrha placanja</label> <input
+				ng-model="statementRequest.paymentPurpose" type="text"
+				name="${field.name}" id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Primalac</label> <input
+				ng-model="statementRequest.reciever" type="text"
+				name="${field.name}" id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Broj racuna uplatioca</label> <input
+				ng-model="statementRequest.originatorAccountNumber" type="text"
+				name="${field.name}" id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Model zaduzenja</label> <input
+				ng-model="statementRequest.chargeModel" type="text"
+				name="${field.name}" id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Poziv na broj zaduzenja</label> <input
+				ng-model="statementRequest.chargeDialNumber" type="text"
+				name="${field.name}" id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Racun poverioca</label> <input
+				ng-model="statementRequest.recieverAccountNumber" type="text"
+				name="${field.name}" id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Model odobrenja</label> <input
+				ng-model="statementRequest.clearanceDialNumber" type="text"
+				name="${field.name}" id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Poziv na broj odobrenja</label> <input
+				ng-model="statementRequest.clearanceChargeDialNumber" type="text"
+				name="${field.name}" id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Iznos</label> <input
+				ng-model="statementRequest.amount" type="text" name="${field.name}"
+				id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Hitno</label> <input
+				ng-model="statementRequest.emergency" type="text"
+				name="${field.name}" id="${field.id}" />
+		</p>
+		<p>
+			<label for="${field.id}">Oznaka valute</label> <input
+				ng-model="statementRequest.currency" type="text"
+				name="${field.name}" id="${field.id}" />
+		</p>
+
+		<div id="formActions">
+			<input ng-click="submitAction(statementRequest)" type="submit" value="Izvrsi uplatu"
+				style="margin-left: 6em" class="btn btn-lg btn-default pulled-left" />
+		</div>
+	</div>
+</div>
+</md-dialog>
+
+</div>

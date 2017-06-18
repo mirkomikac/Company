@@ -9,9 +9,9 @@ import com.company.wsdl.StatementRequest;
 
 public class AccountStatementWebServiceClient extends WebServiceGatewaySupport{
 
-	public AccountStatementSectionResponse getAccountStatementResponse(AccountStatementRequest request){
+	public AccountStatementSectionResponse getAccountStatementResponse(AccountStatementRequest request, String serviceUrl){
 		AccountStatementSectionResponse response = (AccountStatementSectionResponse) this.getWebServiceTemplate()
-			.marshalSendAndReceive("http://localhost:8080/ws/accountStatementRequestService", request, new SoapActionCallback("http://com/xsdSchemas/accountStatementSection"));
+			.marshalSendAndReceive(serviceUrl, request, new SoapActionCallback("http://com/xsdSchemas/accountStatementSection"));
 		return response;
 	}
 	

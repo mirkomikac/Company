@@ -2,11 +2,16 @@ package com.controller;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +21,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.company.model.Account;
+import com.company.model.AccountRequestResponse;
+import com.company.model.Bank;
 import com.company.wsdl.AccountStatementRequest;
+import com.company.wsdl.AccountStatementSectionResponse;
+import com.service.AccountRequestResponseService;
+import com.service.AccountService;
 import com.service.AccountStatementRequestService;
+import com.service.AccountStatementSectionItemService;
+import com.service.AccountStatementSectionResponseService;
+import com.service.BankService;
+import com.webservice.AccountStatementWebServiceClient;
 
 @RestController
 @RequestMapping("/accountStatementRequests")
 public class AccountStatementRequestController {
+	
+	@Autowired
+	private AccountService accountService;
+	
 	@Autowired
 	private AccountStatementRequestService accountStatementRequestService;
+	
+	@Autowired
+	private AccountStatementSectionResponseService accountStatementSectionResponseService;
+	
+	@Autowired
+	private AccountRequestResponseService accountRequestResponseService;
+	
+	@Autowired
+	private AccountStatementSectionItemService accountStatementSectionItemService;
+	
+	@Autowired
+	private BankService bankService;
+	
+	@Autowired
+	private ApplicationContext context;
 	
 	@GetMapping
 	@ResponseBody
@@ -34,8 +68,64 @@ public class AccountStatementRequestController {
 	@PostMapping("/create")
 	@ResponseBody
 	public ResponseEntity<AccountStatementRequest> create(@RequestBody @Valid AccountStatementRequest accountStatementRequest){
-		AccountStatementRequest result = accountStatementRequestService.save(accountStatementRequest);
-		return new ResponseEntity<AccountStatementRequest>(result, HttpStatus.OK);
+		
+		Account account = accountService.findByAccountNumber(accountStatementRequest.getAccountNumber());
+		if(account != null){
+			accountStatementRequest.setSectionOrdinate((short) (accountStatementRequest.getSectionOrdinate() - 1));
+			
+			GregorianCalendar cal = new GregorianCalendar();
+			cal.setTime(accountStatementRequest.getDateDate());
+			
+			try {
+				accountStatementRequest.setDate(DatatypeFactory.newInstance().newXMLGregorianCalendar(cal));
+			} catch (DatatypeConfigurationException e) {
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			}
+			
+			AccountStatementWebServiceClient client = context.getBean(AccountStatementWebServiceClient.class);
+			Bank destinationBank = bankService.findByBankCode(accountStatementRequest.getAccountNumber());
+			String bankServiceUrl = destinationBank.getAccountStatementRequestService();
+			
+			AccountStatementSectionResponse response = client.getAccountStatementResponse(accountStatementRequest, bankServiceUrl);
+			
+			if(response != null){
+			
+				AccountStatementRequest result = accountStatementRequestService.save(accountStatementRequest);
+				
+				response.setRequestDateDate(response.getRequestDate().toGregorianCalendar().getTime());
+				
+				for(int i = 0;i < response.getAccountStatementSectionItems().size();i++){
+					response.getAccountStatementSectionItems().get(i).setAccountStatementSectionResponse(response);
+					response.getAccountStatementSectionItems().get(i).setCurrencyDateDate(response.getAccountStatementSectionItems().get(i).getCurrencyDate().toGregorianCalendar().getTime());
+					response.getAccountStatementSectionItems().get(i).setStatementDateDate(response.getAccountStatementSectionItems().get(i).getStatementDate().toGregorianCalendar().getTime());
+					if(response.getAccountStatementSectionItems().get(i).getRecieverAccountNumber().equals(response.getAccountNumber())){
+						response.getAccountStatementSectionItems().get(i).setDirection("PRILIV");
+					} else {
+						response.getAccountStatementSectionItems().get(i).setDirection("ODLIV");
+					}
+				}
+				
+				AccountStatementSectionResponse accountStatementSectionResponse = accountStatementSectionResponseService.save(response);
+				
+				
+				
+				for(int i = 0;i < response.getAccountStatementSectionItems().size();i++){
+					accountStatementSectionItemService.save(response.getAccountStatementSectionItems().get(i));
+				}
+				
+				AccountRequestResponse accountRequestResponse= new AccountRequestResponse();
+				accountRequestResponse.setAccount(account);
+				accountRequestResponse.setAccountStatementRequest(result);
+				accountRequestResponse.setAccountStatementSectionResponse(accountStatementSectionResponse);
+				
+				accountRequestResponseService.save(accountRequestResponse);
+				
+				return new ResponseEntity<AccountStatementRequest>(result, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
 	@PostMapping("/delete")

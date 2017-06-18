@@ -17,7 +17,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.Max;
@@ -103,10 +102,6 @@ public class AccountStatementRequest {
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="accountStatementRequest", orphanRemoval=true, targetEntity=AccountRequestResponse.class)
 	private Set<AccountRequestResponse> responses;
 	
-	@XmlTransient
-	@ManyToOne(optional = true)
-	private Account account;
-	
     /**
      * Gets the value of the accountNumber property.
      * 
@@ -187,12 +182,4 @@ public class AccountStatementRequest {
 		this.dateDate = dateDate;
 	}
 
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
-	
 }

@@ -33,9 +33,4 @@ public class AccountStatementSectionResponseServiceImpl implements AccountStatem
 		accountStatementSectionResponseRepository.delete(accountStatementSectionResponse);
 	}
 
-	@Override
-	public List<AccountStatementSectionResponse> findByAccountId(Long accountId) {
-		return accountStatementSectionResponseRepository.findByAccountId(accountId);
-	}
-
 }

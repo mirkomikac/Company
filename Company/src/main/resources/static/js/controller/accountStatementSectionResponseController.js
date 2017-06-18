@@ -13,8 +13,13 @@ accountStatementSectionResponseController.controller('accountStatementSectionRes
 
 	$scope.getAllAccountStatementSectionResponses = function() {
 		accountStatementSectionResponseService.getAllAccountStatementSectionResponses().then(function(data) {
-			if($routeParams.param > 0){
-			} 
+			if($routeParams.paramRequest > 0){
+				accountStatementSectionResponseService.getAccoutStatementSectionResponseForRequest($routeParams.paramRequest).then(function(response){
+					$scope.accountStatementSectionResponses = [];
+					$scope.accountStatementSectionResponses.push(response.data);
+					$scope.setSelected(response.data);
+				});
+			} 	
 			else{
 				if (data.data != null) {
 					$scope.accountStatementSectionResponses = data.data;
@@ -33,6 +38,7 @@ accountStatementSectionResponseController.controller('accountStatementSectionRes
 			$scope.accountStatementSectionResponse = {};
 		} else {
 			$scope.setParameters(accountStatementSectionResponse);
+			$scope.showItems(accountStatementSectionResponse);
 		}
 	}
 
@@ -82,13 +88,6 @@ accountStatementSectionResponseController.controller('accountStatementSectionRes
 		/*
 		accountStatementSectionResponseService.searchLegalPersonAccounts(account, $scope.selectedStatus, $scope.selectedBank, $scope.selectedClient, $scope.selectedCurrency, $("#openingDateDatePicker").val()).then(function(response) {
 			$scope.accounts = response.data;
-			for(var i = 0;i < $scope.accounts.length;i++){
-				if($scope.accounts[i].active == true){
-					$scope.accounts[i].activeView = "AKTIVAN";
-				} else {
-					$scope.accounts[i].activeView = "NEAKTIVAN";
-				}
-			}
 		});*/
 	}
 
@@ -106,6 +105,7 @@ accountStatementSectionResponseController.controller('accountStatementSectionRes
 	$scope.setParameters = function(account){
 		$scope.selectedAccountStatementSectionResponse = account;
 		$scope.account = angular.copy(account);
+		$scope.accountStatementSectionItems = [];
 		
 	}
 	

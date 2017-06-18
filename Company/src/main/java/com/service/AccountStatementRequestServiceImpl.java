@@ -39,9 +39,5 @@ public class AccountStatementRequestServiceImpl implements AccountStatementReque
 		return accountStatementRequestRepository.search(accountNumber, dateMin, dateMax, sectionOrdinateMin, sectionOrdinateMax);
 	}
 
-	@Override
-	public List<AccountStatementRequest> findByAccountId(Long accountId) {
-		return accountStatementRequestRepository.findByAccountId(accountId);
-	}
 
 }

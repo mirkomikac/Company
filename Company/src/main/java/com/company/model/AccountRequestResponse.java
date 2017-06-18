@@ -26,4 +26,39 @@ public class AccountRequestResponse {
 	@ManyToOne(optional = false)
 	@JoinColumn(name="account_response")
 	public AccountStatementSectionResponse accountStatementSectionResponse;
+	
+	@ManyToOne(optional = false)
+	public Account account;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public AccountStatementRequest getAccountStatementRequest() {
+		return accountStatementRequest;
+	}
+
+	public void setAccountStatementRequest(AccountStatementRequest accountStatementRequest) {
+		this.accountStatementRequest = accountStatementRequest;
+	}
+
+	public AccountStatementSectionResponse getAccountStatementSectionResponse() {
+		return accountStatementSectionResponse;
+	}
+
+	public void setAccountStatementSectionResponse(AccountStatementSectionResponse accountStatementSectionResponse) {
+		this.accountStatementSectionResponse = accountStatementSectionResponse;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 }

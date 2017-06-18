@@ -164,17 +164,14 @@ public class AccountStatementSectionItem {
     protected String clearanceDialNumber;
     
 	@Column(nullable = false)
-	@Digits(integer = 17, fraction = 2)
     @XmlElement(required = true)
     protected BigDecimal amount;
     
 	@Column(nullable = false)
-	@Digits(integer = 17, fraction = 2)
     @XmlElement(required = true)
     protected String currency;
     
 	@Column(nullable = false)
-	@Digits(integer = 17, fraction = 2)
     @XmlElement(required = true)
     protected String direction;
 

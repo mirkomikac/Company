@@ -12,5 +12,4 @@ public interface AccountStatementSectionResponseService {
 	
 	void delete(AccountStatementSectionResponse accountStatementSectionResponse);
 	
-	List<AccountStatementSectionResponse> findByAccountId(Long accountId);
 }

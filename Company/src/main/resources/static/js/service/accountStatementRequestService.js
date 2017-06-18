@@ -15,18 +15,18 @@ accountStatementRequestService.factory('accountStatementRequestService', functio
 		return $http.post('/accountStatementRequests/delete/', jsonExchangeList);
 	};
 	
-	temp.addAccountStatementRequest = function(accountStatementRequest, date){
+	temp.addAccountStatementRequest = function(accountStatementRequest, date, accountNumber){
 		var dT = new Date(date);
 		var jsonAccountStatementRequest = JSON.stringify({
-			date : dT.valueOf(),
-			accountNumber : accountStatementRequest.accountNumber,
+			dateDate : dT.valueOf(),
+			accountNumber : accountNumber,
 			sectionOrdinate : accountStatementRequest.sectionOrdinate
 		
 		});
 		return $http.post('/accountStatementRequests/create/', jsonAccountStatementRequest);
 	};
 	
-	temp.searchAccountStatementRequests = function(accountStatementRequest, date){
+	temp.searchAccountStatementRequests = function(accountStatementRequest, date, account){
 		var dT = new Date(date);
 		var sectionOrdinate = -1;
 		
@@ -36,7 +36,7 @@ accountStatementRequestService.factory('accountStatementRequestService', functio
 		
 		var jsonAccountStatementRequest = JSON.stringify({
 			date : dT.valueOf(),
-			accountNumber : accountStatementRequest.accountNumber,
+			accountNumber : account.accountNumber,
 			sectionOrdinate : accountStatementRequest.sectionOrdinate
 		
 		});

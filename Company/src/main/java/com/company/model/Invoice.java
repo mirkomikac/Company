@@ -1,6 +1,5 @@
 package com.company.model;
 
-
 import java.util.Date;
 import java.util.Set;
 
@@ -19,85 +18,75 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Invoice {
-	
+
 	@Id
 	@GeneratedValue
 	private Long id;
 
 	@Column(nullable = false)
 	private Long messageId;
-	
+
 	@ManyToOne(optional = false)
 	private Company supplier;
-	
+
 	@ManyToOne(optional = false)
 	private Company purchaser;
-	
+
 	@Column(nullable = false)
 	private Integer billingNumber;
-	
+
 	@Column(nullable = false)
 	private Date billingDate;
-	
+
 	@Column(nullable = false)
 	private Double merchandiseValue;
-	
+
 	@Column(nullable = false)
 	private Double serviceValue;
-	
+
 	@Column(nullable = false)
 	private Double merchandiseAndServiceValue;
-	
+
 	@Column(nullable = false)
 	private Double discount;
-	
+
 	@Column(nullable = false)
 	private Double taxes;
-	
+
 	@Column(nullable = false)
 	private Double amountForPayment;
-	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy="invoice", targetEntity=InvoiceItem.class)
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "invoice", targetEntity = InvoiceItem.class)
 	private Set<InvoiceItem> invoiceItems;
-	
+
 	@ManyToOne(optional = false)
 	private Account accountNumber;
-	
+
 	@Column(nullable = false)
 	private String currency;
-	
+
 	@Column(nullable = false)
 	private Date currencyDate;
 
 	public Invoice() {
 		super();
 	}
-	
-	
 
 	public Company getSupplier() {
 		return supplier;
 	}
 
-
-
 	public void setSupplier(Company supplier) {
 		this.supplier = supplier;
 	}
-
-
 
 	public Company getPurchaser() {
 		return purchaser;
 	}
 
-
-
 	public void setPurchaser(Company purchaser) {
 		this.purchaser = purchaser;
 	}
-
-
 
 	public Long getId() {
 		return id;
@@ -212,7 +201,5 @@ public class Invoice {
 	public void setCurrencyDate(Date currencyDate) {
 		this.currencyDate = currencyDate;
 	}
-	
-	
-	
+
 }

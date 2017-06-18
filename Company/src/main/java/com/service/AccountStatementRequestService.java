@@ -15,6 +15,5 @@ public interface AccountStatementRequestService {
 	
 	List<AccountStatementRequest> search(String accountNumber, Date dateMin, Date dateMax, short sectionOrdinateMin, short sectionOrdinateMax);
 	
-	List<AccountStatementRequest> findByAccountId(Long accountId);
 	
 }

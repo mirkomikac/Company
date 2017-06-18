@@ -30,10 +30,4 @@ public class AccountController {
 		return accountStatementWebService.sendAccountStatementSectionItem(request);
 	}
 	
-	@PostMapping("/status")
-	@ResponseBody
-	public AccountStatementSectionResponse getAccountStatementStatus(@RequestBody AccountStatementRequest accountStatementRequest){
-		return accountStatementWebService.getAccountStatementResponse(accountStatementRequest);
-	}
-	
 }

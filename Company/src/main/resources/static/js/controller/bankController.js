@@ -81,7 +81,7 @@ bankController.controller('bankController', function($rootScope, $scope,
 			closeOnCancel : false
 		}, function(isConfirm) {
 			if (isConfirm) {
-				bankService.deleteBank($scope.selectedBank.id).then(
+				bankService.deleteBank($scope.selectedBank).then(
 						function(response) {
 							if (response.data.id == $scope.selectedBank.id) {
 								var index = $scope.banks
@@ -116,16 +116,11 @@ bankController.controller('bankController', function($rootScope, $scope,
 					});
 		} else {
 			if (Object.keys($scope.banks).length > 0) {
-				bankService.updateBank(bank, $scope.selectedCountry.id).then(
+				bankService.updateBank(bank).then(
 						function(response) {
-							var index = $scope.banks
-									.indexOf($scope.selectedBank);
-							$scope.banks.splice(index, 1);
-							$scope.banks.splice(index, 0, response.data);
-							$scope.bank = {};
+							$scope.getAllBanks();
 							$scope.selectedBank = {};
-
-						});
+				});
 			}
 		}
 	}
@@ -140,12 +135,6 @@ bankController.controller('bankController', function($rootScope, $scope,
 	$scope.setParameters = function(bank) {
 		$scope.selectedBank = bank;
 		$scope.bank = angular.copy(bank);
-		for (i = 0; i < $scope.countries.length; i++) {
-			if ($scope.countries[i].id == bank.country.id) {
-				$scope.selectedCountry = $scope.countries[i];
-				break;
-			}
-		}
 	}
 
 	$scope.nextForm = function() {

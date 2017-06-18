@@ -17,13 +17,16 @@ var temp = {};
 			telephone: bank.telephone,
 			fax: bank.fax,
 			statementService: bank.statementService,
-			accountStatementRequestService: bank.accountStatementRequestService});
+			accountStatementRequestService: bank.accountStatementRequestService,
+			bankCode : bank.bankCode
+		});
 		return $http.post('/banks/create/', jsonBank);
 		
 	}
 	
-	temp.updateBank = function(bank,countryId){
+	temp.updateBank = function(bank){
 		jsonBank = JSON.stringify({
+			id : bank.id,
 			name: bank.name,
 			address: bank.address,
 			email: bank.email,
@@ -31,7 +34,9 @@ var temp = {};
 			telephone: bank.telephone,
 			fax: bank.fax,
 			statementService: bank.statementService,
-			accountStatementRequestService: bank.accountStatementRequestService});
+			accountStatementRequestService: bank.accountStatementRequestService,
+			bankCode : bank.bankCode
+		});
 		return $http.post('/banks/update/', jsonBank);
 	}
 	
@@ -45,7 +50,7 @@ var temp = {};
 			telephone: bank.telephone,
 			fax: bank.fax,
 			statementService: bank.statementService,
-			accountStatementRequestService: bank.accountStatementRequestService});
+			accountStatementRequestService : bank.accountStatementRequestService});
 		return $http.post('/banks/delete/', jsonBank);
 	}
 	

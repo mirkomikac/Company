@@ -32,6 +32,7 @@ public class BankServiceImpl implements BankService {
 		oldBank.setStatementService(bank.getStatementService());
 		oldBank.setEmail(bank.getEmail());
 		oldBank.setFax(bank.getFax());
+		oldBank.setBankCode(bank.getBankCode());
 		oldBank.setTelephone(bank.getTelephone());
 		oldBank.setWeb(bank.getWeb());
 		return bankRepository.save(oldBank);

@@ -4,8 +4,9 @@
 		<ul>
 			<li><a id="search" ng-click="searchClicked()"><img
 					src="images/search.gif" /></a></li>
-			<li><a ng-click="rollbackAction()" id="refresh"><img src="images/refresh.gif" /></a></li>
-			<li><a ng-click="previousForm()" id= 'pickup'><img
+			<li><a ng-click="rollbackAction()" id="refresh"><img
+					src="images/refresh.gif" /></a></li>
+			<li><a ng-click="previousForm()" id='pickup'><img
 					src="images/zoom-pickup.gif" /></a></li>
 			<li><a href="#" id="help"><img src="images/help.gif" /></a></li>
 			<li><a id="first" ng-click="firstClicked()"><img
@@ -28,7 +29,7 @@
 	{{ mode.current }}
 
 	<div class="table-responsive">
-		<table class = "table">
+		<table class="table">
 			<tr class="header">
 				<th>Naziv</th>
 				<th>Adresa</th>
@@ -36,6 +37,7 @@
 				<th>Web</th>
 				<th>Telefon</th>
 				<th>Fax</th>
+				<th>Kod banke</th>
 				<th>Servis naloga za uplatu</th>
 				<th>Servis stanja racuna</th>
 			</tr>
@@ -47,8 +49,9 @@
 				<td>{{ bank.web}}</td>
 				<td>{{ bank.telephone}}</td>
 				<td>{{ bank.fax}}</td>
-				<td>{{ bank.statementService }} </td>
-				<td>{{ bank.accountStatementRequestService }} </td>
+				<td>{{ bank.bankCode }}</td>
+				<td>{{ bank.statementService }}</td>
+				<td>{{ bank.accountStatementRequestService }}</td>
 			</tr>
 		</table>
 	</div>
@@ -62,7 +65,7 @@
 			<label for="${field.id}">Naziv:</label> <input ng-model="bank.name"
 				type="text" name="${field.name}" id="${field.id}" />
 		</p>
-		
+
 		<p>
 			<label for="${field.id}">Adresa:</label> <input
 				ng-model="bank.address" type="text" name="${field.name}"
@@ -77,22 +80,29 @@
 				type="text" name="${field.name}" id="${field.id}" />
 		</p>
 		<p>
-			<label for="${field.id}">Telefon:</label> <input ng-model="bank.telephone"
-				type="text" name="${field.name}" id="${field.id}" />
+			<label for="${field.id}">Telefon:</label> <input
+				ng-model="bank.telephone" type="text" name="${field.name}"
+				id="${field.id}" />
 		</p>
 		<p>
 			<label for="${field.id}">Fax:</label> <input ng-model="bank.fax"
 				type="text" name="${field.name}" id="${field.id}" />
 		</p>
 		<p>
-			<label for="${field.id}">Servis naloga za uplatu:</label> <input ng-model="bank.statementService"
+			<label for="${field.id}">Kod banke:</label> <input ng-model="bank.bankCode"
 				type="text" name="${field.name}" id="${field.id}" />
 		</p>
 		<p>
-			<label for="${field.id}">Servis stanja racuna:</label> <input ng-model="bank.accountStatementRequestService"
-				type="text" name="${field.name}" id="${field.id}" />
+			<label for="${field.id}">Servis naloga za uplatu:</label> <input
+				ng-model="bank.statementService" type="text" name="${field.name}"
+				id="${field.id}" />
 		</p>
-		
+		<p>
+			<label for="${field.id}">Servis stanja racuna:</label> <input
+				ng-model="bank.accountStatementRequestService" type="text"
+				name="${field.name}" id="${field.id}" />
+		</p>
+
 		<div id="formActions">
 			<input ng-click="submitAction(bank)" type="submit" value="Potvrda"
 				style="margin-left: 6em" class="btn btn-lg btn-default pulled-left" />

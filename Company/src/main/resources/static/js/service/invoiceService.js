@@ -10,6 +10,14 @@ invoiceService.factory('invoiceService', function($http){
 	temp.addInvoice = function(invoice){
 		return $http.post("/invoices/addInvoice", invoice);
 	}
+	
+	temp.addInvoiceItem = function(invoiceItem){
+		return $http.post("/invoiceItems/addInvoiceItem", invoiceItem);
+	}
+	
+	temp.getAllCompanies = function(){
+		return $http.get("/companies/getAllCompanies");
+	}
 
 	return temp;
 });

@@ -4,6 +4,9 @@ values (1, 'http://localhost:8080/ws/accountStatementRequestService', 'Bulevear 
 insert into bank(id, account_statement_request_service, address, email, fax, name, statement_service, telephone, web, bank_code) 
 values (2, 'http://localhost:8080/ws/accountStatementRequestService', 'Bulevear narodnog fronta 20', 'komerciajalna@mail.com', '232-444', 'Komercijalna banka', 'http://localhost:8080/ws/statementService', '021/555-131', 'www.komercijalna.com', '666');
 
+insert into company(id, address, name, pib) values (1, 'blabla 100', 'pera', '12345678910');
+insert into company(id, address, name, pib) values (2, 'lala 39', 'sima', '98745678910');
+
 insert into account(id, account_number, active, bank_id, currency) values (1, '333-111-333', true, 1,'DIN');
 insert into account(id, account_number, active, bank_id, currency) values (2, '333-333-333', true, 1, 'DIN');
 insert into account(id, account_number, active, bank_id, currency) value (3, '666-111-333', true, 2, 'LIR');

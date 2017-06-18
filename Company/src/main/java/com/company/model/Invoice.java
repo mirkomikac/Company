@@ -57,7 +57,7 @@ public class Invoice {
 	@Column(nullable = false)
 	private Double amountForPayment;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy="invoice", targetEntity=InvoiceItem.class)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,  mappedBy="invoice", targetEntity=InvoiceItem.class)
 	private Set<InvoiceItem> invoiceItems;
 	
 	@ManyToOne(optional = false)

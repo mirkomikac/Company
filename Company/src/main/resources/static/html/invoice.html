@@ -151,10 +151,37 @@
 				type="date" name="${field.name}" id="${field.id}" />
 		</p>
 		
+		<h3>Stavke fakture</h3>
 		
-		
+	<fieldset  data-ng-repeat="invoiceItem in invoiceItems">
+		<label>Redni broj</label>		
+	      <input type="number" ng-model="invoiceItem.ordinate">
+	      <br>
+   		<label>Naziv robe ili usluge</label>		
+	      <input type="text" ng-model="invoiceItem.merchandiseOrServiceName">
+		<br><label>Kolicina</label>		
+	      <input type="number" step="0.01" ng-model="invoiceItem.amount">
+   		<br><label>Merna jedinica</label>		
+	      <input type="text" ng-model="invoiceItem.unitOfMeasure">
+   		<br><label>Jedinicna cena</label>		
+	      <input type="number" step="0.01" ng-model="invoiceItem.unitPrice">
+   		<br><label>Vrednost</label>		
+	      <input type="number" step="0.01" ng-model="invoiceItem.value">
+   		<br><label>Procenat rabata</label>		
+	      <input type="number" step="0.01" ng-model="invoiceItem.discountPercentage">
+   		<br><label>Iznos rabata</label>		
+	      <input type="number" step="0.01" ng-model="invoiceItem.discountValue">
+   		<br><label>Umanjeno za rabat</label>		
+	      <input type="number" step="0.01" ng-model="invoiceItem.discountTaken">
+   		<br><label>Ukupan porez</label>		
+	      <input type="number" step="0.01" ng-model="invoiceItem.totalTaxes"><br><br>
+   </fieldset>
+
+	   <button class="addfields" ng-click="addNewInvoiceItem()">Jos stavki</button>
+	
+				
 		<div id="formActions">
-			<input ng-click="submitAction(bank)" type="submit" value="Potvrda"
+			<input ng-click="submitAction(invoice, invoiceItems)" type="submit" value="Potvrda"
 				style="margin-left: 6em" class="btn btn-lg btn-default pulled-left" />
 			<input ng-click="rollbackAction()" type="button" value="Rollback"
 				style="margin-left: 6em" class="btn btn-lg btn-default pulled-left" />

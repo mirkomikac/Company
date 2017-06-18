@@ -2,7 +2,7 @@ var accountStatementRequestController = angular.module('company.accountStatement
 		[]);
 
 accountStatementRequestController.controller('accountStatementRequestController', function($scope,
-		$location, $window, $compile, accountStatementRequestService, ngNotify) {
+		$location, $window, $compile, accountStatementRequestService, ngNotify, accountService, $rootScope) {
 	
 	$scope.action = {};
 	$scope.accountStatementRequests = [];
@@ -10,6 +10,10 @@ accountStatementRequestController.controller('accountStatementRequestController'
 	$scope.mode = {};
 	$scope.mode.current = "Rezim dodavanja";
 	$scope.action = "addClicked"
+		
+	$scope.accounts = [];
+	$scope.accountOptions = "account.accountNumber for account in accounts";
+	$scope.selectedAccount = {};
 
 	$scope.getAllAccountStatementRequests = function() {
 		accountStatementRequestService.getAllAccountStatementRequests().then(function(data) {
@@ -19,8 +23,17 @@ accountStatementRequestController.controller('accountStatementRequestController'
 		});
 	}
 	
+	$scope.getAllAccounts = function(){
+		accountService.getAllAccounts().then(function(data) {
+			if (data.data != null) {
+				$scope.accounts = data.data;
+			}
+		});
+	}
+	
 	$scope.getAllAccountStatementRequests();
-
+	$scope.getAllAccounts();
+	
 	$scope.accountStatementRequest = {};
 	$scope.selectedAccountStatementRequest = {};
 	$scope.setSelected = function(accountStatementRequest) {
@@ -95,12 +108,35 @@ accountStatementRequestController.controller('accountStatementRequestController'
 	$scope.accountStatementRequest = {};
 	$scope.submitAction = function(accountStatementRequest) {
 		if ($scope.action == "addClicked") {
-			accountStatementRequestService.addExchangeList(accountStatementRequest, $("#dateDatePicker").val(), $("#usedSinceDatePicker").val(), $scope.selectedBank.id).then(function(response) {
-				$scope.getAllExchangeLists();
-				swal("Uspesno dodavanje", "Uspesno ste dodali kusnu listu", "success");
+			accountStatementRequestService.addAccountStatementRequest(accountStatementRequest, $("#dateDatePicker").val(), $scope.selectedAccount.accountNumber).then(function(response) {
+				$scope.getAllAccountStatementRequests();
+				if (response.data != null && response.data != undefined) {
+					swal({
+						  title: "Pregled rezultata?",
+						  text: "Da li zelite da pregledate odmah rezultat",
+						  type: "success",
+						  showCancelButton: true,
+						  confirmButtonColor: "#DD6B55",
+						  confirmButtonText: "Da, prikazi",
+						  cancelButtonText: "Ponisti",
+						  closeOnConfirm: true,
+						  closeOnCancel: true
+						},
+						function(isConfirm){
+						  if (isConfirm) {
+							  $rootScope.$apply(function() {
+								  $location.path('/accountStatementSectionResponses').search({paramRequest: response.data.id});
+							        console.log($location.path());
+							      });
+							  
+						  } 
+						});
+			} else {
+				swal({ title:"Selektujte zeljeni zahtev.", type:"error" });
+			}
 			});
 		} else if ($scope.action == "searchClicked") {
-			accountStatementRequestService.searchAccountStatementRequests(accountStatementRequest, $("#dateDatePicker").val()).then(function(response) {
+			accountStatementRequestService.searchAccountStatementRequests(accountStatementRequest, $("#dateDatePicker").val(), $scope.selectedAccount).then(function(response) {
 				if(response.data != null){
 					$scope.accountStatementRequests = response.data;
 					swal("Pretraga", "Broj rezultata pretrage: " + response.data.length, "success");
@@ -141,4 +177,27 @@ accountStatementRequestController.controller('accountStatementRequestController'
 		$("#previousFormsModal").modal('show');
 	}
 	
+	
+	$scope.showAccounts = function(){
+		$("#accountsModal").modal('show');
+	}
+	
+	$scope.selectedModalAccount = {};
+	$scope.setModalSelectedAccount = function(account){
+		$scope.selectedModalAccount = account;
+	}
+	
+	$scope.confirmAccount = function(){
+		$scope.selectedAccount = $scope.selectedModalAccount;
+		$("#accountsModal").modal('hide');
+		$scope.selectedModalAccount = {};
+	}
+	
+	$scope.previousForm = function(){
+		$location.path('/accounts');
+	}
+	
+	$scope.chain = function(){
+		  $location.path('/accountStatementSectionResponses').search({paramRequest: $scope.selectedAccountStatementRequest.id});
+	}
 });

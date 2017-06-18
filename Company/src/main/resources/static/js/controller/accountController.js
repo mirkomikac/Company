@@ -40,7 +40,6 @@ accountController.controller('accountController', function($scope,
 						}
 					}
 				}
-				$('#selectFieldCurrency').removeAttr('disabled');
 			}
 		});
 	}
@@ -100,35 +99,50 @@ accountController.controller('accountController', function($scope,
 	}
 
 	$scope.removeClicked = function(account) {
-		if (Object.keys($scope.selectedAccount).length > 0){
-			$scope.action = "removeClicked";
-			$scope.mode.current = "Rezim brisanja";
-			$("#deleteModal").modal('show');
-		} else {
-			swal("Izvrsite selekciju", "Selektujte racun!", "error");
-		}
+		swal({
+			title : "Are you sure?",
+			text : "You will not be able to recover this!",
+			type : "warning",
+			showCancelButton : true,
+			confirmButtonColor : "#DD6B55",
+			confirmButtonText : "Yes, delete it!",
+			cancelButtonText : "Cancel!",
+			closeOnConfirm : false,
+			closeOnCancel : false
+		}, function(isConfirm) {
+			if (isConfirm) {
+				accountService.deleteAccount($scope.selectedAccount).then(
+						function(response) {
+							if (response.data.id == $scope.selectedAccount.id) {
+								var index = $scope.banks
+										.indexOf($scope.selectedBank);
+								$scope.banks.splice(index, 1);
+								swal("Deleted!", "Your data has been deleted.",
+										"success");
+							} else {
+								swal("Error!", "This bank has accounts.",
+										"error");
+							}
+						});
+			} else {
+				swal("Cancelled", "Your have canceled delete operation.",
+						"error");
+			}});
 	}
 
 	$scope.account = {};
 	$scope.submitAction = function(account) {
 		if ($scope.action == "addClicked") {
-			accountService.addLegalPersonAccount(account, $("#openingDateDatePicker").val(), $scope.selectedBank.id, $scope.selectedClient.id, $scope.selectedCurrency.id).then(function(response) {
+			accountService.addAccount(account, $scope.selectedBank.id).then(function(response) {
 				$scope.getAllAccounts();
 			});
 		} else if ($scope.action == "searchClicked") {
 			accountService.searchLegalPersonAccounts(account, $scope.selectedStatus, $scope.selectedBank, $scope.selectedClient, $scope.selectedCurrency, $("#openingDateDatePicker").val()).then(function(response) {
 				$scope.accounts = response.data;
-				for(var i = 0;i < $scope.accounts.length;i++){
-					if($scope.accounts[i].active == true){
-						$scope.accounts[i].activeView = "AKTIVAN";
-					} else {
-						$scope.accounts[i].activeView = "NEAKTIVAN";
-					}
-				}
 			});
 		} else {
 			if (Object.keys($scope.selectedAccount).length > 0) {
-				accountService.editLegalPersonAccount(account,$scope.selectedStatus, $("#openingDateDatePicker").val(), $scope.selectedBank.id, $scope.selectedClient.id, $scope.selectedCurrency.id).then(
+				accountService.editAccount(account, $scope.selectedStatus ,$scope.selectedBank.id).then(
 						function(response) {
 							$scope.getAllAccounts();
 				});
@@ -228,6 +242,11 @@ accountController.controller('accountController', function($scope,
 		} else {
 			swal({ title:"Selektujte racun!", type:"error" });
 		}
+	}
+	
+	
+	$scope.previousForm = function(){
+		$location.path('/banks');
 	}
 	
 });

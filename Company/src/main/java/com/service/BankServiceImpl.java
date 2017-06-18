@@ -53,4 +53,14 @@ public class BankServiceImpl implements BankService {
 		return bankRepository.findAll();
 	}
 
+	@Override
+	public Bank getOne(Long id) {
+		return bankRepository.findOne(id);
+	}
+
+	@Override
+	public Bank findByBankCode(String accountNumber) {
+		return bankRepository.findByBankCode(accountNumber.substring(0, 3));
+	}
+
 }

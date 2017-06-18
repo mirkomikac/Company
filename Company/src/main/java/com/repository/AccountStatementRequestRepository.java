@@ -14,6 +14,4 @@ public interface AccountStatementRequestRepository extends JpaRepository<Account
 	@Query("select statement from AccountStatementRequest statement where statement.accountNumber = ?1 and statement.dateDate between ?2 and ?3 and statement.sectionOrdinate between ?4 and ?5")
 	List<AccountStatementRequest> search(String accountNumber, Date min, Date max, short sectionOrdinateMin, short sectionOrdinateMax);
 
-	@Query("select statement from AccountStatementRequest statement where statement.account.id = ?1")
-	List<AccountStatementRequest> findByAccountId(Long accountId);
 }

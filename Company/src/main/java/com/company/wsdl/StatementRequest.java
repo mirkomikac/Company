@@ -154,7 +154,6 @@ public class StatementRequest {
 	protected String clearanceDialNumber;
 
 	@Column(nullable = false)
-	@Digits(integer = 17, fraction = 2)
 	@XmlElement(namespace = "http://com/xsdSchemas/statement", required = true)
 	protected BigDecimal amount;
 

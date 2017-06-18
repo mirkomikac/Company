@@ -24,16 +24,4 @@ public class AccountController {
 		this.accountStatementWebService = accountStatementWebService;
 	}
 	
-	@PostMapping("/add")
-	@ResponseBody
-	public boolean addAccountStatement(@RequestBody StatementRequest request){
-		return accountStatementWebService.sendAccountStatementSectionItem(request);
-	}
-	
-	@PostMapping("/status")
-	@ResponseBody
-	public AccountStatementSectionResponse getAccountStatementStatus(@RequestBody AccountStatementRequest accountStatementRequest){
-		return accountStatementWebService.getAccountStatementResponse(accountStatementRequest);
-	}
-	
 }

@@ -13,5 +13,6 @@ public interface AccountService {
 	Account update(Account account);
 	List<Account> searchWithoutActive(String accountNumber, Long bankId);
 	List<Account> searchWithActive(String accountNumber, Long bankId, boolean active);
+	Account findByAccountNumber(String accountNumber);
 	
 }

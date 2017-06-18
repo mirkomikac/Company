@@ -11,4 +11,6 @@ public interface BankService {
 	Bank update(Bank bank);
 	void delete(Bank bank);
 	List<Bank> search(Bank bank);
+	Bank getOne(Long id);
+	Bank findByBankCode(String accountNumber);
 }

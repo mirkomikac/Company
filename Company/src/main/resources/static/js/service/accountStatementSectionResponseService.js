@@ -25,5 +25,9 @@ accountStatementSectionResponseService.factory('accountStatementSectionResponseS
 		return $http.post('/accountStatementSectionResponses/details/' + id);
 	}
 	
+	temp.getAccoutStatementSectionResponseForRequest = function(id){
+		return $http.post('/accountStatementSectionResponses/get/' + id);
+	}
+	
 	return temp;
 });

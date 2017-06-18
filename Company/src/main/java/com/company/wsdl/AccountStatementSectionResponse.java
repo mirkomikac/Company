@@ -117,32 +117,26 @@ public class AccountStatementSectionResponse {
 	protected short sectionOrdinate;
     
 	@Column(nullable = false)
-	@Digits(integer=17, fraction=2)
 	@XmlElement(required = true)
     protected BigDecimal previousBalance;
     
 	@Column(nullable = false)
-	@Digits(integer=17, fraction=2)
     @XmlElement(required = true)
     protected BigInteger numberOfChangesProfit;
     
 	@Column(nullable = false)
-	@Digits(integer=17, fraction=2)
     @XmlElement(required = true)
     protected BigDecimal totalProfit;
     
 	@Column(nullable = false)
-	@Digits(integer=17, fraction=2)
     @XmlElement(required = true)
     protected BigInteger numberOfChangesDue;
     
 	@Column(nullable = false)
-	@Digits(integer=17, fraction=2)
     @XmlElement(required = true)
     protected BigDecimal totalDue;
     
 	@Column(nullable = false)
-	@Digits(integer=17, fraction=2)
     @XmlElement(required = true)
     protected BigDecimal currentBalance;
 	
@@ -155,10 +149,6 @@ public class AccountStatementSectionResponse {
 	@JsonIgnore
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="accountStatementSectionResponse", orphanRemoval=true, targetEntity=AccountRequestResponse.class)
 	private Set<AccountRequestResponse> responses;
-	
-	@XmlTransient
-	@ManyToOne(optional=true)
-	private Account account;
 	
 	/**
      * Gets the value of the accountNumber property.
@@ -411,14 +401,6 @@ public class AccountStatementSectionResponse {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
 	}
 
 }

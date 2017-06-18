@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
 import com.company.wsdl.AccountStatementRequest;
@@ -17,38 +19,35 @@ import com.company.wsdl.AccountStatementSectionResponse;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
+@Table(uniqueConstraints={ @UniqueConstraint(columnNames={"accountNumber"})})
 public class Account {
-	
+
 	@Id
 	@GeneratedValue
 	private Long id;
 
-	@Size(min=1, max=50)
-	@Column(nullable=false)
+	@Size(min = 1, max = 50)
+	@Column(nullable = false)
 	private String accountNumber;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private boolean active;
-	
-	@Size(min=1, max=3)
-	@Column(nullable=false)
+
+	@Size(min = 1, max = 3)
+	@Column(nullable = false)
 	private String currency;
 
-	@ManyToOne(optional = true)
+	@ManyToOne(optional = false)
 	private Bank bank;
 
 	@JsonIgnore
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="account", orphanRemoval=true, targetEntity=AccountStatementRequest.class)
-	private Set<AccountStatementRequest> accountStatementRequests;
-	
-	@JsonIgnore
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="account", orphanRemoval=true, targetEntity=AccountStatementSectionResponse.class)
-	private Set<AccountStatementSectionResponse> accountStatementSectionResponses;
-	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="accountNumber", orphanRemoval=true, targetEntity = Invoice.class)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "account", orphanRemoval = true, targetEntity = AccountRequestResponse.class)
+	private Set<AccountRequestResponse> AccountRequestResponses;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "accountNumber", orphanRemoval = true, targetEntity = Invoice.class)
 	@JsonIgnore
 	private Set<Invoice> invoices;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -88,5 +87,5 @@ public class Account {
 	public void setCurrency(String currency) {
 		this.currency = currency;
 	}
-	
+
 }

@@ -12,10 +12,8 @@ accountService.factory('accountService', function($http) {
 	temp.deleteAccount = function(account){
 		return $http.post('/accountsManagement/delete/',account);
 	};
-
-
-	temp.addAccount = function(account) {
-		var jsonAccount = JSON.stringify({
+	temp.addAccount = function(account, bankId) {
+		var jsonAccount = JSON.stringify({	
 			accountNumber : account.accountNumber,
 			bank : {
 				id : bankId
@@ -26,10 +24,7 @@ accountService.factory('accountService', function($http) {
 		return $http.post('/accountsManagement/create', jsonAccount);
 	};
 
-	temp.editAccount = function(account, status,
-			openingDate, bankId, clientId, currencyId) {
-		var dT = new Date(openingDate);
-		dT = dT.getTime();
+	temp.editAccount = function(account, status, bankId) {
 		var active = true;
 		if (status == "Aktivan") {
 			active = true;
@@ -38,12 +33,8 @@ accountService.factory('accountService', function($http) {
 		} else {
 			active = account.active;
 		}	
-		if (openingDate == null) {
-			dT = account.openingDate;
-		}
 		var jsonAccount = JSON.stringify({
 			id : account.id,
-			openingDate : dT,
 			active : active,
 			accountNumber : account.accountNumber,
 			bank : {
@@ -51,7 +42,7 @@ accountService.factory('accountService', function($http) {
 			}
 		});
 
-		return $http.put('/accountsManagement/update/', jsonAccount);
+		return $http.post('/accountsManagement/update/', jsonAccount);
 	};
 
 	temp.getAllBanks = function() {

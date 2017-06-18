@@ -29,13 +29,12 @@
 	<div class="table">
 		<table>
 			<tr class="header">
+				<th>Datum zahteva</th>
 				<th>Broj racuna</th>
-				<th>Valuta racuna</th>
 				<th>Trenutno stanje</th>
 				<th>Broj promena u korist</th>
 				<th>Broj promena u odliv</th>
 				<th>Prethodno stanje</th>
-				<th>Datum zahteva</th>
 				<th>Ukupan priliv</th>
 				<th>Ukupan odliv</th>
 				<th>Redni broj preseka</th>
@@ -44,26 +43,22 @@
 				ng-repeat="accountStatementSectionResponse in accountStatementSectionResponses"
 				ng-click="setSelected(accountStatementSectionResponse)"
 				ng-class="{'alert alert-info' : selectedAccountStatementSectionResponse===accountStatementSectionResponse}">
+				<td>{{ accountStatementSectionResponse.requestDateDate}}</td>
 				<td>{{ accountStatementSectionResponse.accountNumber }}</td>
-				<td>{{ accountStatementSectionResponse.account.currency}}</td>
 				<td>{{ accountStatementSectionResponse.currentBalance}}</td>
 				<td>{{ accountStatementSectionResponse.numberOfChangesDue}}</td>
 				<td>{{ accountStatementSectionResponse.numberOfChangesProfit}}</td>
 				<td>{{ accountStatementSectionResponse.previousBalance}}</td>
-				<td>{{ accountStatementSectionResponse.requestDateDate}}</td>
-				<td>{{ accountStatementSectionResponse.sectionOrdinate}}</td>
 				<td>{{ accountStatementSectionResponse.totalDue}}</td>
 				<td>{{ accountStatementSectionResponse.totalProfit}}</td>
-				<td><input class="btn btn-md btn-default pulled-left"
-					type="button" value="Stavke"
-					ng-click="showItems(accountStatementSectionResponse)" /></td>
+				<td>{{ accountStatementSectionResponse.sectionOrdinate}}</td>
 			</tr>
 		</table>
 	</div>
 
 
-	<div class="table">
-	<h2>Stavke</h2>
+	<div class="table" ng-hide="accountStatementSectionItems.length == 0">
+		<h2>Stavke</h2>
 		<form validate class="simple-form">
 			<table class="centered">
 				<tr class="header">

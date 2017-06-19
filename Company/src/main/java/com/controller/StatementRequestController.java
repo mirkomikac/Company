@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -48,6 +49,7 @@ public class StatementRequestController {
 	public ResponseEntity<StatementRequest> add(@RequestBody @Valid StatementRequest statementRequest){
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTime(statementRequest.getStatementDateDate());
+		cal.setTime(new Date());
 		
 		try {
 			statementRequest.setStatementDate(DatatypeFactory.newInstance().newXMLGregorianCalendar(cal));
@@ -58,7 +60,7 @@ public class StatementRequestController {
 		cal.setTime(statementRequest.getCurrencyDateDate());
 		
 		try {
-			statementRequest.setStatementDate(DatatypeFactory.newInstance().newXMLGregorianCalendar(cal));
+			statementRequest.setCurrencyDate(DatatypeFactory.newInstance().newXMLGregorianCalendar(cal));
 		} catch (DatatypeConfigurationException e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

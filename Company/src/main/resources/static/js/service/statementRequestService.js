@@ -27,7 +27,9 @@ statementRequestService.factory('statementRequestService', function($http) {
 			reciever : statementRequest.reciever,
 			recieverAccountNumber : statementRequest.recieverAccountNumber,
 			statementDateDate : new Date(),
-			messageId : ""
+			placeOfAcceptance : statementRequest.placeOfAcceptance,
+			paymentPurpose : statementRequest.paymentPurpose,
+			messageId : "messageId"
 		});
 		return $http.post('/statementRequests/add', jsonStatementRequest);
 	};

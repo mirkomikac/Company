@@ -41,6 +41,11 @@ insert into account_statement_section_item(id, account_statement_section_respons
 currency, currency_date_date, direction, originator, originator_account_number, payment_purpose, reciever, reciever_account_number, statement_date_date) 
 values (1, 1, 1000, '1111111', '97', '111111', '97', 'DIN', '2017-5-5', 'UPLATA', 'Mirko Mikac', '555-111-555', 'Kupovina namestaja', 'Jovan Jovic', '333-111-333', '2017-5-2');
 
+insert into statement_request
+(id, amount, charge_dial_number, charge_model, clearance_dial_number, clearance_model, currency, currency_date_date, emergency, message_id, originator, originator_account_number, payment_purpose, place_of_acceptance, reciever, reciever_account_number, statement_date_date) values 
+(1, 4000, 31231123131, 97, 133123123, 97, 'DIN', '2017-6-19', true, 'messageId', 'Mirko Mikac', '333-111-333', 'PARE', 'Novi Sad', 'Jovan Jovic', '333-333-333', '2017-6-19');
 
-
+insert into statement_request
+(id, amount, charge_dial_number, charge_model, clearance_dial_number, clearance_model, currency, currency_date_date, emergency, message_id, originator, originator_account_number, payment_purpose, place_of_acceptance, reciever, reciever_account_number, statement_date_date) values 
+(2, 12220, 31231123131, 97, 133123123, 97, 'DIN', '2017-6-15', true, 'messageId', 'Mirko Mikac', '333-111-333', 'PARE', 'Novi Sad', 'Stevan Stevic', '333-111-222', '2017-6-15');
 

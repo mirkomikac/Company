@@ -104,12 +104,8 @@ statementRequestController.controller('statementRequestController', function($sc
 	$scope.statementRequest = {};
 	$scope.submitAction = function(statementRequest) {
 		if ($scope.action == "addClicked") {
-			statementRequestService.addAccount(statementRequest, $scope.selectedBank.id).then(function(response) {
+			statementRequestService.addStatementRequest(statementRequest).then(function(response) {
 				$scope.getAllStatementRequests();
-			});
-		} else if ($scope.action == "searchClicked") {
-			statementRequestService.searchLegalPersonAccounts(statementRequest, $scope.selectedStatus, $scope.selectedBank, $scope.selectedClient, $scope.selectedCurrency, $("#openingDateDatePicker").val()).then(function(response) {
-				$scope.statementRequests = response.data;
 			});
 		} 
 	}

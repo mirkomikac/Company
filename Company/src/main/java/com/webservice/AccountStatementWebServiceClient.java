@@ -8,7 +8,8 @@ import com.company.wsdl.AccountStatementSectionResponse;
 import com.company.wsdl.StatementRequest;
 
 public class AccountStatementWebServiceClient extends WebServiceGatewaySupport{
-
+	
+	
 	public AccountStatementSectionResponse getAccountStatementResponse(AccountStatementRequest request, String serviceUrl){
 		AccountStatementSectionResponse response = (AccountStatementSectionResponse) this.getWebServiceTemplate()
 			.marshalSendAndReceive(serviceUrl, request, new SoapActionCallback("http://com/xsdSchemas/accountStatementSection"));

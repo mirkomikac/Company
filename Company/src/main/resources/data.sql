@@ -1,8 +1,8 @@
 insert into bank(id, account_statement_request_service, address, email, fax, name, statement_service, telephone, web, bank_code) 
-values (1, 'http://localhost:8080/ws/accountStatementRequestService', 'Bulevear fronta 20', 'vojvodjanska@gmail.com', '232-444', 'Vojvodjanska banka', 'http://localhost:8080/ws/statementService', '021/555-333', 'www.vobanka.com', '333');
+values (1, 'https://localhost:8080/ws/accountStatementRequestService', 'Bulevear fronta 20', 'vojvodjanska@gmail.com', '232-444', 'Vojvodjanska banka', 'https://localhost:8080/ws/statementService', '021/555-333', 'www.vobanka.com', '333');
 
 insert into bank(id, account_statement_request_service, address, email, fax, name, statement_service, telephone, web, bank_code) 
-values (2, 'http://localhost:8080/ws/accountStatementRequestService', 'Bulevear narodnog fronta 20', 'komerciajalna@mail.com', '232-444', 'Komercijalna banka', 'http://localhost:8080/ws/statementService', '021/555-131', 'www.komercijalna.com', '666');
+values (2, 'https://localhost:8080/ws/accountStatementRequestService', 'Bulevear narodnog fronta 20', 'komerciajalna@mail.com', '232-444', 'Komercijalna banka', 'https://localhost:8080/ws/statementService', '021/555-131', 'www.komercijalna.com', '666');
 
 insert into company(id, address, name, pib) values (1, 'blabla 100', 'pera', '12345678910');
 insert into company(id, address, name, pib) values (2, 'lala 39', 'sima', '98745678910');

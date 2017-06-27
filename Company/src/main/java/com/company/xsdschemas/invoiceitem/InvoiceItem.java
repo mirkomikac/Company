@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import com.company.xsdschemas.invoice.InvoiceRequest;
@@ -69,6 +70,7 @@ public class InvoiceItem {
 	
 	@Id
 	@GeneratedValue
+	@XmlTransient
 	private Long id;
 	
 	@Column(nullable = false)
@@ -112,6 +114,7 @@ public class InvoiceItem {
     protected BigDecimal totalTaxes;
 	
 	@ManyToOne(optional = false)
+	@XmlTransient
 	private InvoiceRequest invoice;
 
     /**

@@ -30,6 +30,9 @@ public class Company {
 	@Column(nullable = false)
 	private String address;
 	
+	@Column(nullable = true)
+	private String urlInvoiceService;
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy="supplier", targetEntity=InvoiceRequest.class)
 	private Set<InvoiceRequest> invoiceSuppliers;
 	
@@ -39,6 +42,17 @@ public class Company {
 	public Company() {
 		super();
 	}
+
+	
+	public String getUrlInvoiceService() {
+		return urlInvoiceService;
+	}
+
+
+	public void setUrlInvoiceService(String urlInvoiceService) {
+		this.urlInvoiceService = urlInvoiceService;
+	}
+
 
 	public Long getId() {
 		return id;

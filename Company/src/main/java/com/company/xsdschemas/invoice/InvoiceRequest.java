@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
@@ -88,15 +89,19 @@ public class InvoiceRequest {
 	
 	@Id
 	@GeneratedValue
+	@XmlTransient
 	private Long id;
 	
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
+	@XmlTransient
 	private Company supplier;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
+	@XmlTransient
 	private Company purchaser;
 	
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@XmlTransient
 	private Account account;
 	
 	@Column(nullable = false)
@@ -137,6 +142,7 @@ public class InvoiceRequest {
 	protected XMLGregorianCalendar billingDate;
 	
 	@Column(nullable = false)
+	@XmlTransient
 	private Date billingDateDate; 
 	
 	@Column(nullable = false)
@@ -177,6 +183,7 @@ public class InvoiceRequest {
 	protected XMLGregorianCalendar currencyDate;
 	
 	@Column(nullable = false)
+	@XmlTransient
 	private Date currencyDateDate;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,  mappedBy="invoice", targetEntity=InvoiceItem.class)

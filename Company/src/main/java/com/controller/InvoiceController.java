@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.company.xsdschemas.invoice.InvoiceRequest;
 import com.company.xsdschemas.invoiceitem.InvoiceItem;
+import com.restService.RestClient;
 import com.service.InvoiceItemServiceImpl;
 import com.service.InvoiceServiceImpl;
 
@@ -88,6 +89,10 @@ public class InvoiceController {
 			invoiceItems.get(i).setInvoice(invoiceRet);
 			invoiceItemServiceImpl.save(invoiceItems.get(i));
 		}
+		invoiceRet.setInvoiceItems(invoiceItems);
+		RestClient client = new RestClient();
+		client.sendInvoice(invoiceRet);
+		
 		return invoiceRet;
 	}
 	

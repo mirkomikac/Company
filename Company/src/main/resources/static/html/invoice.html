@@ -97,7 +97,7 @@
 				id="${field.id}" />
 		</p>
 		<p>
-			<label for="${field.id}">Datum racuna:</label> <input ng-model="invoice.billingDate"
+			<label for="${field.id}">Datum racuna:</label> <input ng-model="invoice.billingDateDate"
 				type="date" name="${field.name}" id="${field.id}" />
 		</p>
 		<p>
@@ -107,22 +107,22 @@
 		</p>
 		<p>
 			<label for="${field.id}">Vrednost usluga:</label> <input
-			 ng-model="invoice.serviceValue"
+			 ng-model="invoice.servicesValue"
 				type="number" step="0.01" name="${field.name}" id="${field.id}" />
 		</p>
 		<p>
 			<label for="${field.id}">Ukupna vrednost robe i usluga:</label> <input
-			 ng-model="invoice.merchandiseAndServiceValue"
+			 ng-model="invoice.totalServiceAndMerchandiseValue"
 				type="number" step="0.01" name="${field.name}" id="${field.id}" />
 		</p>
 		<p>
 			<label for="${field.id}">Popust:</label> <input 
-			ng-model="invoice.discount"
+			ng-model="invoice.totalDiscount"
 				type="number" step="0.01" name="${field.name}" id="${field.id}" />
 		</p>
 		<p>
 			<label for="${field.id}">Porez:</label> <input
-			 ng-model="invoice.taxes"
+			 ng-model="invoice.totalTaxes"
 				type="number" step="0.01" name="${field.name}" id="${field.id}" />
 		</p>
 		
@@ -134,7 +134,7 @@
 		
 		<p>
 			<label for="${field.id}">Uplata na racun</label> <select id="selectFieldAccount"
-				ng-model="invoice.accountNumber" ng-options="a.accountNumber for a in accountNumbers"><option
+				ng-model="invoice.account" ng-options="a.accountNumber for a in accountNumbers"><option
 					value="" ng-if=true>
 				<option></select>
 		</p>
@@ -147,7 +147,7 @@
 		
 		<p>
 			<label for="${field.id}">Datum valute:</label> <input
-			 ng-model="invoice.currencyDate"
+			 ng-model="invoice.currencyDateDate"
 				type="date" name="${field.name}" id="${field.id}" />
 		</p>
 		
@@ -162,7 +162,7 @@
 		<br><label>Kolicina</label>		
 	      <input type="number" step="0.01" ng-model="invoiceItem.amount">
    		<br><label>Merna jedinica</label>		
-	      <input type="text" ng-model="invoiceItem.unitOfMeasure">
+	      <input type="text" ng-model="invoiceItem.unit">
    		<br><label>Jedinicna cena</label>		
 	      <input type="number" step="0.01" ng-model="invoiceItem.unitPrice">
    		<br><label>Vrednost</label>		
@@ -170,7 +170,7 @@
    		<br><label>Procenat rabata</label>		
 	      <input type="number" step="0.01" ng-model="invoiceItem.discountPercentage">
    		<br><label>Iznos rabata</label>		
-	      <input type="number" step="0.01" ng-model="invoiceItem.discountValue">
+	      <input type="number" step="0.01" ng-model="invoiceItem.disounctAmount">
    		<br><label>Umanjeno za rabat</label>		
 	      <input type="number" step="0.01" ng-model="invoiceItem.discountTaken">
    		<br><label>Ukupan porez</label>		

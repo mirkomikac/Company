@@ -89,20 +89,13 @@ invoiceController.controller('invoiceController', function($rootScope, $scope,
 	    $scope.invoiceItems.push({'id': newItemNo});
 	}
 	
+	$scope.invoice.invoiceItems = [];
 	
 	$scope.submitAction = function(invoice, invoiceItems){
+		invoice.invoiceItems = invoiceItems;
 		invoiceService.addInvoice(invoice).then(function(response){
-			alert("yoy1");
-			for(var i = 0; i < invoiceItems.length; i++){
-				invoiceItem = invoiceItems[i];
-				invoiceItem.invoice = response.data;
-				invoiceService.addInvoiceItem(invoiceItem).then(function(response){
-					alert("yoy2");
-					
-				});
-			}
+			refreshView();
 		});
-		
 	}
 	
 	$scope.rollbackAction = function(){

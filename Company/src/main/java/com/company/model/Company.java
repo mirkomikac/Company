@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.company.xsdschemas.invoice.InvoiceRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -29,11 +30,11 @@ public class Company {
 	@Column(nullable = false)
 	private String address;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy="supplier", targetEntity=Invoice.class)
-	private Set<Invoice> invoiceSuppliers;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy="supplier", targetEntity=InvoiceRequest.class)
+	private Set<InvoiceRequest> invoiceSuppliers;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy="purchaser", targetEntity=Invoice.class)
-	private Set<Invoice> invoicePurchasers;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy="purchaser", targetEntity=InvoiceRequest.class)
+	private Set<InvoiceRequest> invoicePurchasers;
 
 	public Company() {
 		super();
@@ -72,22 +73,22 @@ public class Company {
 	}
 
 	@JsonIgnore
-	public Set<Invoice> getInvoiceSuppliers() {
+	public Set<InvoiceRequest> getInvoiceSuppliers() {
 		return invoiceSuppliers;
 	}
 
 	@JsonProperty
-	public void setInvoiceSuppliers(Set<Invoice> invoiceSuppliers) {
+	public void setInvoiceSuppliers(Set<InvoiceRequest> invoiceSuppliers) {
 		this.invoiceSuppliers = invoiceSuppliers;
 	}
 
 	@JsonIgnore
-	public Set<Invoice> getInvoicePurchasers() {
+	public Set<InvoiceRequest> getInvoicePurchasers() {
 		return invoicePurchasers;
 	}
 
 	@JsonProperty
-	public void setInvoicePurchasers(Set<Invoice> invoicePurchasers) {
+	public void setInvoicePurchasers(Set<InvoiceRequest> invoicePurchasers) {
 		this.invoicePurchasers = invoicePurchasers;
 	}
 	

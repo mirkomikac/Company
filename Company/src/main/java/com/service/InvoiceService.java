@@ -2,12 +2,13 @@ package com.service;
 
 import java.util.ArrayList;
 
-import com.company.model.Invoice;
+import com.company.xsdschemas.invoice.InvoiceRequest;
+
 
 public interface InvoiceService {
 
-	Invoice save(Invoice invoice);
+	InvoiceRequest save(InvoiceRequest invoice);
 	
-	ArrayList<Invoice> getAll();
+	ArrayList<InvoiceRequest> getAll();
 	
 }

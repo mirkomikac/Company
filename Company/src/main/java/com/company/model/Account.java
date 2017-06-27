@@ -14,8 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
-import com.company.wsdl.AccountStatementRequest;
-import com.company.wsdl.AccountStatementSectionResponse;
+import com.company.xsdschemas.invoice.InvoiceRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -44,9 +43,9 @@ public class Account {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "account", orphanRemoval = true, targetEntity = AccountRequestResponse.class)
 	private Set<AccountRequestResponse> AccountRequestResponses;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "accountNumber", orphanRemoval = true, targetEntity = Invoice.class)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "account", orphanRemoval = true, targetEntity = InvoiceRequest.class)
 	@JsonIgnore
-	private Set<Invoice> invoices;
+	private Set<InvoiceRequest> invoices;
 
 	public Long getId() {
 		return id;

@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.company.model.Invoice;
-import com.company.model.InvoiceItem;
+import com.company.xsdschemas.invoiceitem.InvoiceItem;
 import com.repository.InvoiceItemRepository;
 
 @Service

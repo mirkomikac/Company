@@ -11,5 +11,5 @@ public interface InvoiceItemService {
 	
 	ArrayList<InvoiceItem> getAll();
 	
-	
+	ArrayList<InvoiceItem> getInvoiceItemsByInvoiceId(Long id);
 }

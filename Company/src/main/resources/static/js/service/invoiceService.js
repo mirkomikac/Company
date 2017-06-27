@@ -18,6 +18,10 @@ invoiceService.factory('invoiceService', function($http){
 	temp.getAllCompanies = function(){
 		return $http.get("/companies/getAllCompanies");
 	}
+	
+	temp.getItemsByInvoice = function(id){
+		return $http.post("/invoiceItems/getByInvoiceId", id);
+	}
 
 	return temp;
 });

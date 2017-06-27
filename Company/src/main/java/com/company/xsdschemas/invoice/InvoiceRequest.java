@@ -92,15 +92,15 @@ public class InvoiceRequest {
 	@XmlTransient
 	private Long id;
 	
-	@ManyToOne(optional = true)
+	@Transient
 	@XmlTransient
 	private Company supplier;
 
-	@ManyToOne(optional = true)
+	@Transient
 	@XmlTransient
 	private Company purchaser;
 	
-	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@Transient
 	@XmlTransient
 	private Account account;
 	

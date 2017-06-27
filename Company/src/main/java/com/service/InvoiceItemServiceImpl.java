@@ -26,6 +26,12 @@ public class InvoiceItemServiceImpl implements InvoiceItemService{
 		return (ArrayList<InvoiceItem>) invoiceItemRepository.findAll();
 	}
 
+	@Override
+	public ArrayList<InvoiceItem> getInvoiceItemsByInvoiceId(Long id) {
+		// TODO Auto-generated method stub
+		return invoiceItemRepository.getInvoiceItemsByInvoiceId(id);
+	}
+
 
 	
 }

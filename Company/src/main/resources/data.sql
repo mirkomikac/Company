@@ -49,3 +49,21 @@ insert into statement_request
 (id, amount, charge_dial_number, charge_model, clearance_dial_number, clearance_model, currency, currency_date_date, emergency, message_id, originator, originator_account_number, payment_purpose, place_of_acceptance, reciever, reciever_account_number, statement_date_date) values 
 (2, 12220, 31231123131, 97, 133123123, 97, 'DIN', '2017-6-15', true, 'messageId', 'Mirko Mikac', '333-111-333', 'PARE', 'Novi Sad', 'Stevan Stevic', '333-111-222', '2017-6-15');
 
+insert into invoice_request(id, account_number, amount_for_payment, billing_date_date, billing_number, currency, currency_date_date,
+merchandise_value, message_id, purchaser_adress, purchaser_pib, purchaser_name, supplier_address, supplier_name, supplier_pib, total_discount, total_taxes, total_service_and_merchandise_value, services_value) values
+(1, '333-111-333', 1000, '2017-6-6', 100, 'DIN', '2017-7-7', 1000, 'messageId', 'Stanka Vranesa 3', '8132131', 'Jovan', 'Branka Kostica', 'Kosta', '132311', 20, 20, 200000, 12111);
+
+insert into invoice_request(id, account_number, amount_for_payment, billing_date_date, billing_number, currency, currency_date_date,
+merchandise_value, message_id, purchaser_adress, purchaser_pib, purchaser_name, supplier_address, supplier_name, supplier_pib, total_discount, total_taxes, total_service_and_merchandise_value, services_value) values
+(2, '333-222-333', 111312, '2017-6-6', 100, 'DIN', '2017-7-7', 1000, 'messageId', 'Ranka Jovica 10', '8132131', 'Ivan', 'Stola Kostica', 'Kosta', '132311', 20, 20, 12222, 312312);
+
+insert into invoice_request(id, account_number, amount_for_payment, billing_date_date, billing_number, currency, currency_date_date,
+merchandise_value, message_id, purchaser_adress, purchaser_pib, purchaser_name, supplier_address, supplier_name, supplier_pib, total_discount, total_taxes, total_service_and_merchandise_value, services_value) values
+(3, '333-111-333', 1000, '2017-6-6', 100, 'DIN', '2017-7-7', 1000, 'messageId', 'Tosa Bunar 3', '8132131', 'Bojan', 'Krane Zupic', 'Kosta', '132311', 20, 20, 12312, 301100);
+
+insert into invoice_item(id, amount, discount_percentage, discount_taken, disounct_amount, invoice_id, merchandise_or_service_name, ordinate, total_taxes, unit, unit_price, value) values 
+(1, 1000, 10, 10, 100, 1, 'Torba', 1, 20, 'KG', 50, 500);
+insert into invoice_item(id, amount, discount_percentage, discount_taken, disounct_amount, invoice_id, merchandise_or_service_name, ordinate, total_taxes, unit, unit_price, value) values 
+(2, 1000, 10, 10, 100, 1, 'Sto', 1, 20, 'KG', 50, 500);
+
+

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
@@ -43,7 +44,7 @@ public class Account {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "account", orphanRemoval = true, targetEntity = AccountRequestResponse.class)
 	private Set<AccountRequestResponse> AccountRequestResponses;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "account", orphanRemoval = true, targetEntity = InvoiceRequest.class)
+	@Transient
 	@JsonIgnore
 	private Set<InvoiceRequest> invoices;
 

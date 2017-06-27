@@ -52,13 +52,11 @@ invoiceController.controller('invoiceController', function($rootScope, $scope,
 		}
 	}
 
+	$scope.invoiceItemsInvoice = [];
 	
 	syncClick = function(invoice){
 		$scope.selectedInvoice = invoice;
-		$scope.invoice.id = invoice.id;
 		$scope.invoice.messageId = invoice.messageId;
-		$scope.invoice.supplier = findCompanyForSelect(invoice.supplier.id);
-		$scope.invoice.purchaser = findCompanyForSelect(invoice.purchaser.id);
 		$scope.invoice.billingNumber = invoice.billingNumber;
 		$scope.invoice.billingDate = invoice.billingDate;
 		$scope.invoice.merchandiseValue = invoice.merchandiseValue;
@@ -67,7 +65,6 @@ invoiceController.controller('invoiceController', function($rootScope, $scope,
 		$scope.invoice.totalDiscount = invoice.totalDiscount;
 		$scope.invoice.totalTaxes  = invoice.totalTaxes;
 		$scope.invoice.amountForPayment = invoice.amountForPayment;
-		$scope.invoice.account = findAccountForSelect(invoice.account.id);
 		$scope.invoice.currency = invoice.currency;
 		$scope.invoice.currencyDate = invoice.currencyDate;
 	}
@@ -106,6 +103,20 @@ invoiceController.controller('invoiceController', function($rootScope, $scope,
 		$scope.invoiceItems = {};
 		$scope.invoiceItems = [{id : 1}];
 		refreshView();
+	}
+	
+	$scope.showItems = function(id){
+		$("#itemsModal").modal('show');
+		$scope.setModalSelectedInvoiceItem();
+		invoiceService.getItemsByInvoice(id).then(function(response){
+			$scope.invoiceItemsInvoice = response.data;
+		});
+		
+	}
+	
+	$scope.selectedModalInvoiceItem = {};
+	$scope.setModalSelectedInvoiceItem = function(item){
+		$scope.selectedModalInvoiceItem = item;
 	}
 	
 });

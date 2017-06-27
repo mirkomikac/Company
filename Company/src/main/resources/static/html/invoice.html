@@ -45,12 +45,13 @@
 				<th>Uplata na racun</th>
 				<th>Oznaka valute</th>
 				<th>Datum valute</th>
+				<th>Stavke</th>
 			</tr>
 			<tr ng-repeat="invoice in invoices" ng-click="setSelected(invoice)"
 				ng-class="{'alert alert-info' : selectedInvoice===invoice}">
 				<td>{{ invoice.messageId }}</td>
-				<td>{{ invoice.supplier.name }}</td>
-				<td>{{ invoice.purchaser.name }}</td>
+				<td>{{ invoice.supplierName }}</td>
+				<td>{{ invoice.purchaserName }}</td>
 				<td>{{ invoice.billingNumber }}</td>
 				<td>{{ invoice.billingDate }}</td>
 				<td>{{ invoice.merchandiseValue }}</td>
@@ -59,10 +60,10 @@
 				<td>{{ invoice.totalDiscount }}</td>
 				<td>{{ invoice.totalTaxes }}</td>
 				<td>{{ invoice.amountForPayment }}</td>
-				<td>{{ invoice.account.accountNumber }}</td>
+				<td>{{ invoice.accountNumber }}</td>
 				<td>{{ invoice.currency }}</td>
 				<td>{{ invoice.currencyDate }}</td>
-
+				<td><input type="button" value="Detalji" class="btn btn-md btn-default" ng-click="showItems(invoice.id)"/></td>
 			</tr>
 		</table>
 	</div>
@@ -187,5 +188,48 @@
 				style="margin-left: 6em" class="btn btn-lg btn-default pulled-left" />
 		</div>
 	</div>
+	
+	<md-dialog class="modal" id="itemsModal" tabindex="-1"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1>Items</h1>
+			</div>
+			<div class="modal-body">
+				<form validate class="simple-form">
+					<table class="centered">
+						<tr class="header">
+							<th>Iznos</th>
+							<th>Procenat rabata</th>
+							<th>Rabat uzet</th>
+							<th>Iznos rabata</th>
+							<th>Naziv</th>
+							<th>Redni broj</th>
+							<th>Ukupan porez</th>
+							<th>Jedinica mere</th>
+							<th>Jedinica mere vrednost</th>
+							<th>Vrednost</th>
+						</tr>
+						<tr ng-repeat="item in invoiceItemsInvoice"
+							ng-click="setModalSelectedInvoiceItem(item)"
+							ng-class="{'alert alert-info' : selectedModalInvoiceItem===item}">
+							<td>{{ item.amount }}</td>
+							<td>{{ item.discountPercentage }}</td>
+							<td>{{ item.discountTaken }}</td>
+							<td>{{ item.discountAmount }}</td>
+							<td>{{ item.merchandiseOrServiceName }}</td>
+							<td>{{ item.ordinate }}</td>
+							<td>{{ item.totalTaxes }}</td>
+							<td>{{ item.unit }}</td>
+							<td>{{ item.unitPrice }}</td>
+							<td>{{ item.value }}</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+	</md-dialog>
 	 
 	</div>

@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.company.xsdschemas.invoice.InvoiceRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,16 +34,17 @@ public class Company {
 	@Column(nullable = true)
 	private String urlInvoiceService;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy="supplier", targetEntity=InvoiceRequest.class)
+	@Transient
+	@JsonIgnore
 	private Set<InvoiceRequest> invoiceSuppliers;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy="purchaser", targetEntity=InvoiceRequest.class)
+	@Transient
+	@JsonIgnore
 	private Set<InvoiceRequest> invoicePurchasers;
 
 	public Company() {
 		super();
 	}
-
 	
 	public String getUrlInvoiceService() {
 		return urlInvoiceService;

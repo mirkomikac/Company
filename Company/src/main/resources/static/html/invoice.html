@@ -54,12 +54,12 @@
 				<td>{{ invoice.billingNumber }}</td>
 				<td>{{ invoice.billingDate }}</td>
 				<td>{{ invoice.merchandiseValue }}</td>
-				<td>{{ invoice.serviceValue }}</td>
-				<td>{{ invoice.merchandiseAndServiceValue }}</td>
-				<td>{{ invoice.discount }}</td>
-				<td>{{ invoice.taxes }}</td>
+				<td>{{ invoice.servicesValue }}</td>
+				<td>{{ invoice.totalServiceAndMerchandiseValue }}</td>
+				<td>{{ invoice.totalDiscount }}</td>
+				<td>{{ invoice.totalTaxes }}</td>
 				<td>{{ invoice.amountForPayment }}</td>
-				<td>{{ invoice.accountNumber.accountNumber }}</td>
+				<td>{{ invoice.account.accountNumber }}</td>
 				<td>{{ invoice.currency }}</td>
 				<td>{{ invoice.currencyDate }}</td>
 
@@ -74,7 +74,7 @@
 				ng-model="invoice.id" style="display: none;" />
 		<p>
 			<label for="${field.id}">ID poruke:</label> <input ng-model="invoice.messageId"
-				type="number" name="${field.name}" id="${field.id}" />
+				type="text" name="${field.name}" id="${field.id}" />
 		</p>
 		
 		<p>

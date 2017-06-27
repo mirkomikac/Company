@@ -62,12 +62,12 @@ invoiceController.controller('invoiceController', function($rootScope, $scope,
 		$scope.invoice.billingNumber = invoice.billingNumber;
 		$scope.invoice.billingDate = invoice.billingDate;
 		$scope.invoice.merchandiseValue = invoice.merchandiseValue;
-		$scope.invoice.serviceValue = invoice.serviceValue;
-		$scope.invoice.merchandiseAndServiceValue = invoice.merchandiseAndServiceValue;
-		$scope.invoice.discount = invoice.discount;
-		$scope.invoice.taxes  = invoice.taxes;
+		$scope.invoice.servicesValue = invoice.servicesValue;
+		$scope.invoice.totalServiceAndMerchandiseValue = invoice.totalServiceAndMerchandiseValue;
+		$scope.invoice.totalDiscount = invoice.totalDiscount;
+		$scope.invoice.totalTaxes  = invoice.totalTaxes;
 		$scope.invoice.amountForPayment = invoice.amountForPayment;
-		$scope.invoice.accountNumber = findAccountForSelect(invoice.accountNumber.id);
+		$scope.invoice.account = findAccountForSelect(invoice.account.id);
 		$scope.invoice.currency = invoice.currency;
 		$scope.invoice.currencyDate = invoice.currencyDate;
 	}
